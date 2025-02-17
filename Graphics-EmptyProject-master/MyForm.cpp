@@ -13,3 +13,4 @@ void Main(array<String^>^ args)
 	CppWinForm1::MyForm form;
 	Application::Run(%form);
 }
+ 

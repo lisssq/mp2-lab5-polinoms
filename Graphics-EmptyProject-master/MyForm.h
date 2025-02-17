@@ -11,7 +11,7 @@ namespace CppWinForm1 {
 
 	/// <summary>
 	/// Summary for MyForm
-	/// </summary>
+	/// </summary> 
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:

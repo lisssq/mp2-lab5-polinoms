@@ -10,7 +10,7 @@
 struct Monom
 {
 	double coeff;
-	int x, y, z;
+	int x, y, z; 
 
 public:
 
