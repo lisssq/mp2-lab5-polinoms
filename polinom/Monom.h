@@ -5,7 +5,7 @@
 #include <cmath>
 //using namespace std;
 //const int MAX_SZ = 10000;
-
+  
 
 struct Monom
 {
