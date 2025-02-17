@@ -5,16 +5,14 @@
 #include "Monom.h"
 
 
-  
+ 
+Monom::Monom() : coeff(0), x(0), y(0), z(0) {}			// конструктор по умолчанию
 
-//  онструктор по умолчанию
-Monom::Monom() : coeff(0), x(0), y(0), z(0) {}
 
-//  онструктор с параметрами
-Monom::Monom(double _coeff, int _x, int _y, int _z)
+Monom::Monom(double _coeff, int _x, int _y, int _z)		// конструктор с параметрами
 	: coeff(_coeff), x(_x), y(_y), z(_z) {}
 
-// —еттеры
+
 void Monom::SetCoeff(double _coeff)
 {
 	coeff = _coeff;
@@ -27,8 +25,7 @@ void Monom::SetXYZ(int _x, int _y, int _z)
 }
 
 
-// ќператоры сравнени€ (лексикографический пор€док)
-bool Monom::operator<(const Monom& m) const
+bool Monom::operator<(const Monom& m) const				// операторы сравнени€ (лексикографический пор€док)
 {
 	if (x != m.x)
 	{
@@ -65,13 +62,12 @@ bool Monom::operator==(const Monom& m) const
 //----------------------------------------------------
 
 
-//  онструктор
 template <class T>
-List<T>::List() : pFirst(nullptr), pLast(nullptr), sz(0) {}
+List<T>::List() : pFirst(nullptr), pLast(nullptr), sz(0) {}		// конструктор
 
-// ƒеструктор
+
 template <class T>
-List<T>::~List()
+List<T>::~List()			// деструктор
 {
 	while (!isEmpty())
 	{
@@ -79,23 +75,23 @@ List<T>::~List()
 	}
 }
 
-// ѕроверка на пустоту
+
 template <class T>
-bool List<T>::isEmpty() const
+bool List<T>::isEmpty() const		// проверка на пустоту
 {
 	return pFirst == nullptr;
 }
 
 
 template <class T>
-void List<T>::insFirst(T elem)
+void List<T>::insFirst(T elem)			// вставка в начало
 {
-	Node<T>* node = new Node<T>(elem);
-	node->pNext = pFirst;
-	pFirst = node;
+	Node<T>* node = new Node<T>(elem);	// новый узел с данными
+	node->pNext = pFirst;				// новый узел указывает на текущий первый
+	pFirst = node;						// теперь первый узел - новый
 
-	if (pLast == nullptr)
-	{  // ≈сли это первый элемент, pLast тоже указывает на него
+	if (pLast == nullptr)				// если список был пустым, то последний элемент тот же что и первый
+	{  
 		pLast = node;
 	}
 	sz++;
@@ -103,16 +99,16 @@ void List<T>::insFirst(T elem)
 
 
 template <class T>
-void List<T>::delFirst()
+void List<T>::delFirst()				// удал€ем из начала
 {
-	if (isEmpty())
+	if (isEmpty())						// если список пуст, то просто выходим
 	{
 		return;
 	}
-	Node<T>* tmp = pFirst;
-	pFirst = pFirst->pNext;
-	delete tmp;
-	if (pFirst == nullptr)	 // ≈сли список стал пустым, pLast тоже должен обнулитьс€
+	Node<T>* tmp = pFirst;				// сохран€ем указатель на первый узел
+	pFirst = pFirst->pNext;				// переходим на следующий узел
+	delete tmp;							// удал€ем самый первый узел
+	if (pFirst == nullptr)				// если список стал пустым то последний элемент логично = nullptr
 	{
 		pLast = nullptr;
 	}
@@ -120,17 +116,44 @@ void List<T>::delFirst()
 }
 
 template <class T>
-void List<T>::insLast(T elem)
+void List<T>::insLast(T elem)			// вставка в конец
 {
-	Node<T>* tmp = new Node<T>(elem);
-	if (pFirst == nullptr)		// ≈сли список пуст
+	Node<T>* tmp = new Node<T>(elem);	// создаем новый узел 
+	if (pFirst == nullptr)				// если список пуст то первый и последний узел = новому узлу tmp
 	{
 		pFirst = pLast = tmp;
-	}
-	else
+	}	
+	else								// иначе добавл€ем в конец
 	{
-		pLast->pNext = tmp;
-		pLast = tmp;
+		pLast->pNext = tmp;				// переходим с последнего на следующий за ним
+		pLast = tmp;					// и делаем последний = tmp
 	}
 	sz++;
+}
+
+template <class T>
+void List<T>::delLast()
+{
+	if (isEmpty())						// если список пуст, то просто выходим
+	{
+		return;
+	}
+	if (pFirst == pLast)				// если в списке один элемент 
+	{
+		delete pFirst;					// удал€ем узел
+		pFirst = nullptr;				// устанавливаем указатели в нуллптр
+		pLast = nullptr;
+		sz--;
+		return;
+	}
+
+	Node<T> tmp = pFirst;				// временный указатель
+	while (tmp->pNext != pLast)			// идем до предполеднего элемента 
+	{
+		tmp = tmp->pNext;				// переходим к следующему элементу
+	}
+	delete pLast;						// удал€ем последний
+	pLast = tmp;						// предпоследний становитс€ последним	
+	pLast->pNext = nullptr;				// указатель последнего элемента = нуллптр
+	sz--;
 }

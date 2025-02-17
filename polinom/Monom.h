@@ -14,29 +14,13 @@ struct Monom
 
 public:
 
-	Monom();
+	Monom();		// моном с нулевыми параметрами	
 	Monom(double _coeff, int x, int y, int z);
 
 	void SetCoeff(double _coeff);
 	void SetXYZ(int _x, int _y, int _z);
 
 	bool operator<(const Monom& m) const;
-	/*
-	{
-		bool res = false;
-		if (x < m.x)
-		{
-			if (y < m.y)
-			{
-				if (z < m.z)
-				{
-					res = true;
-				}
-			}
-		}
-		return res;
-	}*/
-
 	bool operator>(const Monom& m) const;
 	bool operator==(const Monom& m) const;
 
@@ -62,40 +46,31 @@ public:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 template <typename T>
 struct Node
 {
-	T val;
-	Node* pNext;
+	T val;			// значение в узле
+	Node* pNext;	// указатель на след.узел
 };
 
 
 template <typename T>
-class List
+class List			// класс списка
 {
 protected:
-	Node<T> *pFirst, *pLast;
-	int sz;
+	Node<T>* pFirst;		// указатель на первый элемент
+	Node<T>* pLast;			// указатель на последний элемент
+	int sz;					// кол-во элементов в списке
 	
 public:
 
-	List();
+	List();					// пустой список 
 	~List();
 
-	void insFirst(T elem);
-	void delFirst();
-	void insLast(T elem);
+	void insFirst(T elem);	// добавление элемента в начало списка
+	void delFirst();		// удаление элемента из начала списка
+	void insLast(T elem);	// добавление элемента в конец списка
+	void delLast();			// удаление элемента из конца списка
 
 	bool isEmpty() const;
 
