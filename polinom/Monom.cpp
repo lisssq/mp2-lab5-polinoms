@@ -157,3 +157,26 @@ void List<T>::delLast()
 	pLast->pNext = nullptr;				// указатель последнего элемента = нуллптр
 	sz--;
 }
+
+template <class T>
+void List<T>::reset()
+{
+	pCurr = pFirst;
+	pPrev = nullptr;
+}
+
+template<class T>
+void List<T>::goNext()
+{
+	pPrev = pCurr;
+	pCurr = pCurr->pNext;
+}
+
+template<class T>
+bool List<T>::isEnd()
+{
+	if (pCurr->pNext == nullptr)
+	{
+		return true;
+	}
+}

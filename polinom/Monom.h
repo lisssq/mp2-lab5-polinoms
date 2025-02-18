@@ -60,6 +60,8 @@ class List			// класс списка
 protected:
 	Node<T>* pFirst;		// указатель на первый элемент
 	Node<T>* pLast;			// указатель на последний элемент
+	Node<T>* pCurr;
+	Node<T>* pPrev;
 	int sz;					// кол-во элементов в списке
 	
 public:
@@ -73,6 +75,13 @@ public:
 	void delLast();			// удаление элемента из конца списка
 
 	bool isEmpty() const;
+
+
+	void reset();
+	void goNext();
+	bool isEnd();
+
+	void getCurrent();
 
 };
 

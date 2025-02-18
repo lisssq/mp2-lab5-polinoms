@@ -2,6 +2,7 @@
 #include <string.h>
 #include <string>
 #include <cmath>
+#include <vector>
 #include <locale.h>
 #include "Monom.h"
 //using namespace std;
@@ -35,3 +36,21 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+
+
+
+//using namespace std;
+//int main()
+//{
+//    vector<int> v = { 1,2,3,4,5 };
+//    vector <int>::iterator i;
+//    for (i = v.begin(); i != v.end(); i++)
+//    {
+//        cout << *i;
+//    }
+//}
