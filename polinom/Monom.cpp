@@ -147,7 +147,7 @@ void List<T>::delLast()
 		return;
 	}
 
-	Node<T> tmp = pFirst;				// временный указатель
+	Node<T> *tmp = pFirst;				// временный указатель
 	while (tmp->pNext != pLast)			// идем до предполеднего элемента 
 	{
 		tmp = tmp->pNext;				// переходим к следующему элементу
@@ -175,8 +175,43 @@ void List<T>::goNext()
 template<class T>
 bool List<T>::isEnd()
 {
-	if (pCurr->pNext == nullptr)
+	/*if (pCurr->pNext == nullptr)
 	{
 		return true;
+	}*/
+	return pCurr == nullptr;
+}
+
+
+template<class T>
+void List<T>::delCurr()		// удаляем текущий элемент списка
+{
+	if (pFirst == nullptr)		// если список пуст то ничего
+	{
+		return;
 	}
+	if (pCurr == pFirst)		// если текущий элемент это первый элемент
+	{
+		delFirst();				// удаляем первый
+		pCurr = nullptr;		// обнуляем текущий указатель после удаления
+		return;
+	}
+	if (pCurr == pLast)			// если текущий элемент это последний элемент
+	{
+		delLast();				// удаляем 
+		pCurr = nullptr;		// обнуляем текущий указатель после удаления
+		return;
+	}
+
+	pPrev->pNext = pCurr->pNext;	// переписываем указатль на предыдущий в зависимости от текущего
+	delete pCurr;					// удаляем текущий
+	pCurr = pPrev->pNext;			// перемещаем текущий на следубщий
+
+	if (pCurr == nullptr)			// если удалили последний элемент
+	{
+		pLast = pPrev;				// то pPrev теперь последний
+	}
+
+	sz--;				// уменьшаем размер списка
+
 }

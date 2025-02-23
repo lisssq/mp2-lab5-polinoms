@@ -5,6 +5,9 @@
 #include <vector>
 #include <locale.h>
 #include "Monom.h"
+#include "Polinom.h"
+/*#include "Polinom.cpp"
+#include "Monom.cpp"*/
 //using namespace std;
 
 int main() 
@@ -34,8 +37,63 @@ int main()
     m1.SetXYZ(3, 0, 2);
     std::cout << "Обновленный m1: " << m1 << std::endl;
 
+
+
+    //// Создание списка
+    //List<Monom> list;
+
+    //// Добавление элементов
+    //list.insFirst(m2);
+    //list.insLast(m3);
+    //list.insFirst(m1);
+    //list.insLast(m4);
+
+    //// Вывод списка
+    //Node<Monom>* temp = list.pFirst;
+    //std::cout << "Список мономов: ";
+    //while (temp != nullptr) {
+    //    std::cout << temp->val << " -> ";
+    //    temp = temp->pNext;
+    //}
+    //std::cout << "NULL\n";
+
+
+    //// Удаление элементов
+    //list.delFirst();
+    //list.delLast();
+
+    //// Вывод списка после удаления
+    //temp = list.pFirst;
+    //std::cout << "После удаления первого и последнего: ";
+    //while (temp != nullptr) {
+    //    std::cout << temp->val << " -> ";
+    //    temp = temp->pNext;
+    //}
+    //std::cout << "NULL\n";
+
+    //std::cout << "\n=== Тестирование класса Polynom ===\n";
+
+
+
+    // Создание полинома
+    Polynom poly;
+
+    // Добавление мономов
+    poly.addMonom(m1);
+    poly.addMonom(m2);
+    poly.addMonom(m3);
+    poly.addMonom(m4);
+
+    // Вывод полинома
+    std::cout << "Полином: " << poly << std::endl;
+
+
     return 0;
 }
+
+
+
+
 
 
 

@@ -6,6 +6,32 @@
 class Polynom :public List<Monom>
 {
 public:
+
+	Polynom() : List<Monom>() {}  // Конструктор по умолчанию (создаёт пустой полином)
+
+	friend std::ostream& operator<<(std::ostream& out, const Polynom& p)
+	{
+		if (p.pFirst == nullptr) {
+			out << "0";
+			return out;
+		}
+
+		Node<Monom>* temp = p.pFirst;
+		bool first = true; // Чтобы не ставить лишний плюс в начале
+
+		while (temp != nullptr)
+		{
+			if (!first && temp->val.coeff > 0)
+				out << " + ";
+
+			out << temp->val;
+			temp = temp->pNext;
+			first = false;
+		}
+
+		return out;
+	}
+
 	Polynom(Monom* p, int size)
 	{
 		for (int i = 0; i < size; i++)
@@ -14,54 +40,47 @@ public:
 		}
 	}
 
+
+
 	void addMonom(Monom m)
 	{
-		if (pFirst == nullptr)
+		if (pFirst == nullptr)		// если список пуст, то просто добавляем моном
 		{
 			insLast(m);
+			return;
 		}
-		else
+		if (m > pFirst->val)		// если моном больше первого, то вставляем его в начало списка
 		{
-			if (m > pFirst->val)
-			{
-				insFirst(m);
-			}
+			insFirst(m);
+			return;
 		}
-		if (m < pLast->val)
+		if (m < pLast->val)			// если моном меньше последнего, вставляем в конец списка
 		{
 			insLast(m);
+			return;
 		}
 
 		for (reset(); !isEnd(); goNext())
 		{
-			if (m >= pCurr->val)
+			if (m == pCurr->val) // Если нашли моном с такой же степенью, складываем коэффициенты
 			{
-				if (m > pCurr->val)
+				pCurr->val.coeff += m.coeff;
+				if (pCurr->val.coeff == 0) // Если коэффициент стал 0, удаляем моном
 				{
-					Node<Monom>* tmp = new Node<Monom>;
-					tmp->val = m;
-					tmp->pNext = pCurr;
-					pPrev->pNext = tmp;
+					delCurr();
 				}
-				else
-				{
-					double c;
-					c = pCurr->val.coeff + m.coeff;
-					if (c != 0)
-					{
-						pCurr->val.coeff = c;
-					}
-					else
-					{
-						Node<Monom>* tmp = pCurr;
-						pCurr = pCurr->pNext;
-						pPrev->pNext = pCurr;
-						delete tmp;
-					}
-				}
+				return;
+			}
+			else if (m > pCurr->val) // Если моном больше текущего, вставляем перед ним
+			{
+				Node<Monom>* tmp = new Node<Monom>;
+				tmp->val = m;
+				tmp->pNext = pCurr;
+				pPrev->pNext = tmp;
+				return;
 			}
 		}
 	}
 
-	void delCurr();
+
 };

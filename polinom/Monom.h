@@ -15,6 +15,7 @@ struct Monom
 public:
 
 	Monom();		// моном с нулевыми параметрами	
+
 	Monom(double _coeff, int x, int y, int z);
 
 	void SetCoeff(double _coeff);
@@ -51,6 +52,10 @@ struct Node
 {
 	T val;			// значение в узле
 	Node* pNext;	// указатель на след.узел
+
+	Node() : pNext(nullptr) {} //  онструктор по умолчанию (инициализирует только указатель)
+
+	Node(const T& value) : val(value), pNext(nullptr) {} //  онструктор с параметром
 };
 
 
@@ -82,6 +87,23 @@ public:
 	bool isEnd();
 
 	void getCurrent();
+
+	void delCurr();
+
+	friend std::ostream& operator<<(std::ostream& out, const List<T>& list)
+	{
+		Node<T>* temp = list.pFirst;
+		while (temp != nullptr)
+		{
+			out << temp->val;
+			if (temp->pNext != nullptr)
+			{
+				out << " + "; // –аздел€ем элементы плюсами
+			}
+			temp = temp->pNext;
+		}
+		return out;
+	}
 
 };
 
