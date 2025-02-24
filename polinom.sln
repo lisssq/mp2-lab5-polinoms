@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppWinForm1", "Graphics-Emp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mp2-lab5-polinoms", "polinom\polinom.vcxproj", "{8C116DE4-8574-4056-9313-8C3F30D13BCE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{90C23D72-4E58-4E41-AC15-1DC767AAC737}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{8C116DE4-8574-4056-9313-8C3F30D13BCE}.Release|x64.Build.0 = Release|x64
 		{8C116DE4-8574-4056-9313-8C3F30D13BCE}.Release|x86.ActiveCfg = Release|Win32
 		{8C116DE4-8574-4056-9313-8C3F30D13BCE}.Release|x86.Build.0 = Release|Win32
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Debug|x64.ActiveCfg = Debug|x64
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Debug|x64.Build.0 = Debug|x64
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Debug|x86.ActiveCfg = Debug|Win32
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Debug|x86.Build.0 = Debug|Win32
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Release|x64.ActiveCfg = Release|x64
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Release|x64.Build.0 = Release|x64
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Release|x86.ActiveCfg = Release|Win32
+		{90C23D72-4E58-4E41-AC15-1DC767AAC737}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

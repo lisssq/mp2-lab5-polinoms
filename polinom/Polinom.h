@@ -2,85 +2,89 @@
 #include "Monom.h"
 #include "Monom.cpp"
 
-
-class Polynom :public List<Monom>
+class Polinom : public List<Monom>
 {
 public:
+	Polinom();                                      // конструктор по умолчанию
+	Polinom(Monom* p, int size);                    // конструктор с массивом мономов
 
-	Polynom() : List<Monom>() {}  //  онструктор по умолчанию (создаЄт пустой полином)
+	void addMonom(Monom m);                         // добавление монома в полином
 
-	friend std::ostream& operator<<(std::ostream& out, const Polynom& p)
+	friend std::ostream& operator<<(std::ostream& out, const Polinom& p)
 	{
-		if (p.pFirst == nullptr) {
-			out << "0";
-			return out;
-		}
+        if (p.pFirst == nullptr) {
+            out << "0";
+            return out;
+        }
 
-		Node<Monom>* temp = p.pFirst;
-		bool first = true; // „тобы не ставить лишний плюс в начале
+        Node<Monom>* temp = p.pFirst;
+        bool first = true;                          // чтобы не ставить лишний плюс в начале
 
-		while (temp != nullptr)
-		{
-			if (!first && temp->val.coeff > 0)
-				out << " + ";
+        while (temp != nullptr)
+        {
+            if (!first && temp->val.coeff > 0)
+                out << " + ";
 
-			out << temp->val;
-			temp = temp->pNext;
-			first = false;
-		}
+            out << temp->val;
+            temp = temp->pNext;
+            first = false;
+        }
 
-		return out;
+        return out;
 	}
-
-	Polynom(Monom* p, int size)
-	{
-		for (int i = 0; i < size; i++)
-		{
-			insLast(p[i]);
-		}
-	}
-
-
-
-	void addMonom(Monom m)
-	{
-		if (pFirst == nullptr)		// если список пуст, то просто добавл€ем моном
-		{
-			insLast(m);
-			return;
-		}
-		if (m > pFirst->val)		// если моном больше первого, то вставл€ем его в начало списка
-		{
-			insFirst(m);
-			return;
-		}
-		if (m < pLast->val)			// если моном меньше последнего, вставл€ем в конец списка
-		{
-			insLast(m);
-			return;
-		}
-
-		for (reset(); !isEnd(); goNext())
-		{
-			if (m == pCurr->val) // ≈сли нашли моном с такой же степенью, складываем коэффициенты
-			{
-				pCurr->val.coeff += m.coeff;
-				if (pCurr->val.coeff == 0) // ≈сли коэффициент стал 0, удал€ем моном
-				{
-					delCurr();
-				}
-				return;
-			}
-			else if (m > pCurr->val) // ≈сли моном больше текущего, вставл€ем перед ним
-			{
-				Node<Monom>* tmp = new Node<Monom>;
-				tmp->val = m;
-				tmp->pNext = pCurr;
-				pPrev->pNext = tmp;
-				return;
-			}
-		}
-	}
-
-
 };
+
+
+
+
+
+Polinom::Polinom() : List<Monom>() {}           // конструктор по умолчанию (создаЄт пустой полином)
+
+Polinom::Polinom(Monom* p, int size)            // конструктор с массивом мономов
+{
+    for (int i = 0; i < size; i++)
+    {
+        insLast(p[i]);
+    }
+}
+
+void Polinom::addMonom(Monom m)                 // добавление монома в полином
+{
+    if (pFirst == nullptr)                      // если список пуст, добавл€ем в конец
+    {
+        insLast(m);
+        return;
+    }
+    if (m > pFirst->val)                        // вставл€ем в начало, если он больше первого
+    {
+        insFirst(m);
+        return;
+    }
+    if (m < pLast->val)                         // вставл€ем в конец, если он меньше последнего
+    {
+        insLast(m);
+        return;
+    }
+
+    for (reset(); !isEnd(); goNext())
+    {
+        if (m == pCurr->val)                    // если нашли моном с такой же степенью, складываем коэффициенты
+        {
+            pCurr->val.coeff += m.coeff;
+            if (pCurr->val.coeff == 0)          // если коэффициент стал 0, удал€ем моном
+            {
+                delCurr();
+            }
+            return;
+        }
+        else if (m > pCurr->val)                // если моном больше текущего, вставл€ем перед ним
+        {
+            Node<Monom>* tmp = new Node<Monom>;
+            tmp->val = m;
+            tmp->pNext = pCurr;
+            pPrev->pNext = tmp;
+            return;
+        }
+    }
+}
+

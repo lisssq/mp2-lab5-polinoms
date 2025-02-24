@@ -78,8 +78,10 @@ public:
 	void delFirst();		// удаление элемента из начала списка
 	void insLast(T elem);	// добавление элемента в конец списка
 	void delLast();			// удаление элемента из конца списка
+	void delCurr();			// удалить текущий элемент списка
 
-	bool isEmpty() const;
+
+	bool isEmpty() const;	// проверка на пустоту
 
 
 	void reset();
@@ -88,7 +90,6 @@ public:
 
 	void getCurrent();
 
-	void delCurr();
 
 	friend std::ostream& operator<<(std::ostream& out, const List<T>& list)
 	{
@@ -98,7 +99,7 @@ public:
 			out << temp->val;
 			if (temp->pNext != nullptr)
 			{
-				out << " + "; // Разделяем элементы плюсами
+				out << " + "; // разделяем элементы плюсами
 			}
 			temp = temp->pNext;
 		}

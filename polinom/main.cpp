@@ -6,86 +6,50 @@
 #include <locale.h>
 #include "Monom.h"
 #include "Polinom.h"
-/*#include "Polinom.cpp"
-#include "Monom.cpp"*/
-//using namespace std;
+
 
 int main() 
 {   
     setlocale(LC_ALL, "Russian");
 
 
-    // Создание мономов с разными коэффициентами и степенями
-    Monom m1; // Должен быть 0 (по умолчанию)
-    Monom m2(3.5, 2, 1, 0);
-    Monom m3(5.0, 1, 2, 3);
-    Monom m4(2.0, 2, 1, 0); // Аналогичный m2 по степеням, но с другим коэффициентом
+    Monom m1;               // по умолчанию будет 0
+    Monom m2(2.5, 1, 2, 3);
+    Monom m3(10.0, 3, 2, 1);
+    Monom m4(1.0, 2, 1, 0); 
+    Monom m5(2.5, 1, 2, 3);
 
-    // Вывод мономов
+    // вывод мономов
     std::cout << "m1 = " << m1 << std::endl;
     std::cout << "m2 = " << m2 << std::endl;
     std::cout << "m3 = " << m3 << std::endl;
     std::cout << "m4 = " << m4 << std::endl;
+    std::cout << "m5 = " << m5 << std::endl;
     
-    // Проверка операторов сравнения
-    std::cout << "m2 < m3: " << (m2 < m3) << std::endl;
-    std::cout << "m3 > m2: " << (m3 > m2) << std::endl;
-    std::cout << "m2 == m4: " << (m2 == m4) << std::endl;
+    // проверка операторов сравнения
+    std::cout << "m2 меньше m3?: " << (m2 < m3) << std::endl;
+    std::cout << "m2 больше m3?: " << (m2 > m3) << std::endl;
+    std::cout << "m2 == m5: " << (m2 == m5) << std::endl;
 
-    // Проверка сеттеров
+    // проверка сеттера
     m1.SetCoeff(1.5);
     m1.SetXYZ(3, 0, 2);
-    std::cout << "Обновленный m1: " << m1 << std::endl;
+    std::cout << "обновленный m1: " << m1 << std::endl;
+
+    std::cout << "---------------------------" << std::endl;
 
 
-
-    //// Создание списка
-    //List<Monom> list;
-
-    //// Добавление элементов
-    //list.insFirst(m2);
-    //list.insLast(m3);
-    //list.insFirst(m1);
-    //list.insLast(m4);
-
-    //// Вывод списка
-    //Node<Monom>* temp = list.pFirst;
-    //std::cout << "Список мономов: ";
-    //while (temp != nullptr) {
-    //    std::cout << temp->val << " -> ";
-    //    temp = temp->pNext;
-    //}
-    //std::cout << "NULL\n";
-
-
-    //// Удаление элементов
-    //list.delFirst();
-    //list.delLast();
-
-    //// Вывод списка после удаления
-    //temp = list.pFirst;
-    //std::cout << "После удаления первого и последнего: ";
-    //while (temp != nullptr) {
-    //    std::cout << temp->val << " -> ";
-    //    temp = temp->pNext;
-    //}
-    //std::cout << "NULL\n";
-
-    //std::cout << "\n=== Тестирование класса Polynom ===\n";
-
-
-
-    // Создание полинома
-    Polynom poly;
+    Polinom poly;           // создание полинома
 
     // Добавление мономов
     poly.addMonom(m1);
     poly.addMonom(m2);
     poly.addMonom(m3);
     poly.addMonom(m4);
+    poly.addMonom(m5);
 
     // Вывод полинома
-    std::cout << "Полином: " << poly << std::endl;
+    std::cout << "полином: " << poly << std::endl;
 
 
     return 0;

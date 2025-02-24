@@ -77,7 +77,7 @@ List<T>::~List()			// деструктор
 
 
 template <class T>
-bool List<T>::isEmpty() const		// проверка на пустоту
+bool List<T>::isEmpty() const			// проверка на пустоту
 {
 	return pFirst == nullptr;
 }
