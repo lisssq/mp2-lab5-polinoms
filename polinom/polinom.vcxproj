@@ -131,7 +131,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monom.cpp" />
     <ClCompile Include="Monom.h" />
-    <ClCompile Include="Polinom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Polinom.h" />

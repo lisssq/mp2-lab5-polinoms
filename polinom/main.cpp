@@ -12,14 +12,13 @@ int main()
 {   
     setlocale(LC_ALL, "Russian");
 
-
     Monom m1;               // по умолчанию будет 0
     Monom m2(2.5, 1, 2, 3);
     Monom m3(10.0, 3, 2, 1);
     Monom m4(1.0, 2, 1, 0); 
     Monom m5(2.5, 1, 2, 3);
 
-    // вывод мономов
+
     std::cout << "m1 = " << m1 << std::endl;
     std::cout << "m2 = " << m2 << std::endl;
     std::cout << "m3 = " << m3 << std::endl;
@@ -41,19 +40,20 @@ int main()
 
     Polinom poly;           // создание полинома
 
-    // ƒобавление мономов
     poly.addMonom(m1);
     poly.addMonom(m2);
     poly.addMonom(m3);
     poly.addMonom(m4);
     poly.addMonom(m5);
 
-    // ¬ывод полинома
     std::cout << "полином: " << poly << std::endl;
-
 
     return 0;
 }
+
+
+
+
 
 
 

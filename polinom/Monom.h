@@ -45,8 +45,6 @@ public:
 
 
 
-
-
 template <typename T>
 struct Node
 {
@@ -84,24 +82,24 @@ public:
 	bool isEmpty() const;	// проверка на пустоту
 
 
-	void reset();
-	void goNext();
-	bool isEnd();
+	void reset();			// устанавливает итератор в начало
+	void goNext();			// переход к следующему элементу
+	bool isEnd();			// проверка достигнут ли конец списка
 
-	void getCurrent();
+	void getCurrent();		// получить текущее значение	
 
 
 	friend std::ostream& operator<<(std::ostream& out, const List<T>& list)
 	{
-		Node<T>* temp = list.pFirst;
-		while (temp != nullptr)
+		Node<T>* tmp = list.pFirst;				// начинаем с первого элемента
+		while (tmp != nullptr)
 		{
-			out << temp->val;
-			if (temp->pNext != nullptr)
+			out << tmp->val;					// выводим значение узла
+			if (tmp->pNext != nullptr)			// если есть следующий, то 
 			{
-				out << " + "; // разделяем элементы плюсами
+				out << " + ";					// разделяем элементы плюсами
 			}
-			temp = temp->pNext;
+			tmp = tmp->pNext;					// переходим дальше
 		}
 		return out;
 	}
