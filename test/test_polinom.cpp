@@ -1,8 +1,23 @@
 ﻿#include "..\polinom\Polinom.h"
 #include "..\polinom\Monom.h"
-
+#include "..\polinom\List.h"
 #include <string>
 #include "gtest.h"
+
+
+
+
+
+
+// два полинома по 3 монома, разные случаи 
+// оператор сравнния так же
+// оператор присваивания (как у очереди)
+// 
+
+
+
+
+
 
 // Проверка создания монома по умолчанию
 TEST(Monom, can_create_monom_with_default_constructor)

@@ -6,6 +6,9 @@
 #include <locale.h>
 #include "Monom.h"
 #include "Polinom.h"
+#include "List.h"
+
+// добавить использование итератора (?)
 
 
 int main() 
@@ -47,6 +50,40 @@ int main()
     poly.addMonom(m5);
 
     std::cout << "полином: " << poly << std::endl;
+
+
+
+
+    std::cout << "---------------------------" << std::endl;
+
+
+
+
+    Polinom P;
+    P.addMonom(m1);
+    P.addMonom(m2);
+
+    Polinom Q;
+    Q.addMonom(m3);
+
+    std::cout << "P = " << P << std::endl;
+    std::cout << "Q = " << Q << std::endl;
+
+    Polinom sum = P + Q;
+    std::cout << "P + Q = " << sum << std::endl;
+
+    Polinom diff = P - Q;
+    std::cout << "P - Q = " << diff << std::endl;
+
+    Polinom scaled = P * 2;
+    std::cout << "P * 2 = " << scaled << std::endl;
+
+    Polinom product = P * m3;
+    std::cout << "P * m3 = " << product << std::endl;
+
+
+
+
 
     return 0;
 }
