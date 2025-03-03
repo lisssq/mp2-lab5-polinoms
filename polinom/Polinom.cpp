@@ -1,3 +1,8 @@
+#include <iostream>
+#include <string.h>
+#include <string>
+#include <cmath>
+#include <vector>
 #include "Polinom.h"
 #include "Monom.h"
 #include "List.h"

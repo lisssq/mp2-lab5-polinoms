@@ -1,4 +1,9 @@
 #pragma once
+#include <iostream>
+#include <string.h>
+#include <string>
+#include <cmath>
+#include <vector>
 #include "Monom.h"
 #include "List.h"
 
@@ -19,3 +24,14 @@ public:
 
 
 };
+
+// сделать чтоб сложение (или умножение??) полинома и тд было умным - не было двойного прохода, чтоб если нашли, продолжали поиск с места где остановились 
+
+
+
+
+
+
+
+
+

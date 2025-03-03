@@ -1,5 +1,9 @@
 #pragma once
 #include <iostream>
+#include <string.h>
+#include <string>
+#include <cmath>
+#include <vector>
 
 
 template <typename T>
@@ -36,6 +40,7 @@ public:
 	void insLast(T elem);	// добавление элемента в конец списка
 	void delLast();			// удаление элемента из конца списка
 	void delCurr();			// удалить текущий элемент списка
+	void insCurr(T elem);
 
 
 	bool isEmpty() const;	// проверка на пустоту
@@ -256,6 +261,26 @@ void List<T>::delCurr()		// удаляем текущий элемент списка
 
 	sz--;				// уменьшаем размер списка
 
+}
+
+template<class T>
+void List<T>::insCurr(T elem)		// 
+{
+	if (pCurr == pFirst)
+	{
+		insFirst(elem);
+		pPrev = pFirst;
+		return;
+	}
+	if (pPrev == pLast)
+	{
+		insLast(elem);
+		return;
+	}
+	Node<T>* tmp = new Node<T>{ elem,pCurr };
+	pPrev->pNext = tmp;
+	pPrev = pPrev->pNext;
+	sz++;
 }
 
 template<class T>

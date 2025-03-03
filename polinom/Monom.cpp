@@ -2,6 +2,7 @@
 #include <string.h>
 #include <string>
 #include <cmath>
+#include <vector>
 #include "Monom.h"
 
 

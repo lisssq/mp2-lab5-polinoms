@@ -3,6 +3,7 @@
 #include <string.h>
 #include <string>
 #include <cmath>
+#include <vector>
 #include "List.h"
 //#include "Polinom.h"
 //using namespace std;
@@ -35,3 +36,7 @@ public:
 	}*/
 
 };	
+
+
+
+
