@@ -14,7 +14,7 @@ struct Node
 
 	Node() : pNext(nullptr) {} // Конструктор по умолчанию (инициализирует только указатель)
 
-	Node(const T& value) : val(value), pNext(nullptr) {} // Конструктор с параметром
+	Node(const T& value, Node* next = nullptr) : val(value), pNext(next) {} // Конструктор с параметром
 };
 
 
@@ -47,13 +47,14 @@ public:
 
 
 	void reset();			// устанавливает итератор в начало
-	//void reset() const;
 	void goNext();			// переход к следующему элементу
-	//void goNext() const;
 	bool isEnd();			// проверка достигнут ли конец списка
-	//bool isEnd() const;
 
 	T getCurrent();		// получить текущее значение	
+
+
+	List& operator=(const List& other);
+
 
 
 	friend std::ostream& operator<<(std::ostream& out, const List<T>& list)
@@ -113,13 +114,15 @@ bool List<T>::isEmpty() const			// проверка на пустоту
 template <class T>
 void List<T>::insFirst(T elem)			// вставка в начало
 {
-	Node<T>* node = new Node<T>(elem);	// новый узел с данными
-	node->pNext = pFirst;				// новый узел указывает на текущий первый
-	pFirst = node;						// теперь первый узел - новый
+	Node<T>* tmp = new Node<T>;// (elem);	// новый узел с данными
+	tmp->val = elem;
+	tmp->pNext = pFirst;				// новый узел указывает на текущий первый
+	//pFirst = node;						// теперь первый узел - новый
 
-	if (pLast == nullptr)				// если список был пустым, то последний элемент тот же что и первый
+	if (pFirst == nullptr)				// если список был пустым, то последний элемент тот же что и первый
 	{
-		pLast = node;
+		pLast = tmp;
+		pFirst = tmp;
 	}
 	sz++;
 }
@@ -128,7 +131,7 @@ void List<T>::insFirst(T elem)			// вставка в начало
 template <class T>
 void List<T>::delFirst()				// удаляем из начала
 {
-	if (isEmpty())						// если список пуст, то просто выходим
+	if (pFirst==nullptr)						// если список пуст, то просто выходим
 	{
 		return;
 	}
@@ -145,23 +148,24 @@ void List<T>::delFirst()				// удаляем из начала
 template <class T>
 void List<T>::insLast(T elem)			// вставка в конец
 {
-	Node<T>* tmp = new Node<T>(elem);	// создаем новый узел 
-	if (pFirst == nullptr)				// если список пуст то первый и последний узел = новому узлу tmp
+	Node<T>* tmp = new Node<T>;// (elem);	// создаем новый узел 
+	tmp->val = elem;
+	if (pLast)
 	{
-		pFirst = pLast = tmp;
+		pLast->pNext = tmp;
 	}
-	else								// иначе добавляем в конец
+	else 
 	{
-		pLast->pNext = tmp;				// переходим с последнего на следующий за ним
-		pLast = tmp;					// и делаем последний = tmp
+		pFirst = tmp;
 	}
+	pLast = tmp;
 	sz++;
 }
 
 template <class T>
 void List<T>::delLast()
 {
-	if (isEmpty())						// если список пуст, то просто выходим
+	if (pFirst == nullptr)						// если список пуст, то просто выходим
 	{
 		return;
 	}
@@ -170,18 +174,21 @@ void List<T>::delLast()
 		delete pFirst;					// удаляем узел
 		pFirst = nullptr;				// устанавливаем указатели в нуллптр
 		pLast = nullptr;
-		sz--;
+		//sz--;
 		return;
 	}
-
-	Node<T>* tmp = pFirst;				// временный указатель
-	while (tmp->pNext != pLast)			// идем до предполеднего элемента 
+	else
 	{
-		tmp = tmp->pNext;				// переходим к следующему элементу
+		Node<T>* tmp = pFirst;				// временный указатель
+		while (tmp->pNext != pLast)			// идем до предполеднего элемента 
+		{
+			tmp = tmp->pNext;				// переходим к следующему элементу
+		}
+		delete pLast;						// удаляем последний
+		pLast = tmp;						// предпоследний становится последним	
+		pLast->pNext = nullptr;				// указатель последнего элемента = нуллптр
+	
 	}
-	delete pLast;						// удаляем последний
-	pLast = tmp;						// предпоследний становится последним	
-	pLast->pNext = nullptr;				// указатель последнего элемента = нуллптр
 	sz--;
 }
 
@@ -192,61 +199,42 @@ void List<T>::reset()
 	pPrev = nullptr;
 }
 
-//template <class T>
-//void List<T>::reset() const
-//{
-//	pCurr = pFirst;
-//	pPrev = nullptr;
-//}
-
 template<class T>
 void List<T>::goNext()
 {
+	if (pCurr == nullptr)
+	{
+		return;
+	}
 	pPrev = pCurr;
 	pCurr = pCurr->pNext;
 }
 
-//template<class T>
-//void List<T>::goNext() const
-//{
-//	pPrev = pCurr;
-//	pCurr = pCurr->pNext;
-//}
 
 template<class T>
 bool List<T>::isEnd()
 {
-	/*if (pCurr->pNext == nullptr)
-	{
-		return true;
-	}*/
 	return pCurr == nullptr;
 }
-
-//template<class T>
-//bool List<T>::isEnd() const
-//{
-//	return pCurr == nullptr;
-//}
 
 
 template<class T>
 void List<T>::delCurr()		// удаляем текущий элемент списка
 {
-	if (pFirst == nullptr)		// если список пуст то ничего
+	if (isEmpty() || pFirst == nullptr)		// если список пуст то ничего
 	{
 		return;
 	}
 	if (pCurr == pFirst)		// если текущий элемент это первый элемент
 	{
 		delFirst();				// удаляем первый
-		pCurr = nullptr;		// обнуляем текущий указатель после удаления
+		reset();
 		return;
 	}
 	if (pCurr == pLast)			// если текущий элемент это последний элемент
 	{
 		delLast();				// удаляем 
-		pCurr = nullptr;		// обнуляем текущий указатель после удаления
+		reset();
 		return;
 	}
 
@@ -277,7 +265,9 @@ void List<T>::insCurr(T elem)		//
 		insLast(elem);
 		return;
 	}
-	Node<T>* tmp = new Node<T>{ elem,pCurr };
+	Node<T>* tmp = new Node<T>(elem);
+	tmp->pNext = pCurr; // Устанавливаем связь с текущ
+
 	pPrev->pNext = tmp;
 	pPrev = pPrev->pNext;
 	sz++;
@@ -290,5 +280,22 @@ T List<T>::getCurrent()
 	{
 		return pCurr->val;
 	}
-		
+}
+
+
+template <typename T>
+List<T>& List<T>:: operator=(const List& other) 
+{
+	if (this == &other) return *this;
+	while (pFirst) 
+	{
+		delFirst();
+	}
+	Node<T>* pCurr = other.pFirst;
+	while (pCurr)
+	{
+		insLast(pCurr->val);
+		pCurr = pCurr->pNext;
+	}
+	return *this;
 }
