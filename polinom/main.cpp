@@ -8,34 +8,39 @@
 int main() {
     setlocale(LC_ALL, "Russian");
 
-    std::vector<Polinom> polinoms;
+    std::vector<Polinom> polinoms;              // вектор полином который будет хранить полиномчики (объекты типа "полином")
 
     while (true) {
-        std::cout << "Выберите действие:" << std::endl;
+        std::cout << "Выбери действие:" << std::endl;
         std::cout << "1. Ввести полином" << std::endl;
         std::cout << "2. Выполнить операцию над полиномами" << std::endl;
         std::cout << "3. Вывести все полиномы" << std::endl;
-        std::cout << "0. Выход" << std::endl;
+        std::cout << "0. Выйти" << std::endl;
 
-        int choice;
-        std::cin >> choice;
+        int num;        // номер действия
+        std::cin >> num;
 
-        if (choice == 0) {
+        if (num == 0) 
+        {
             break;
         }
 
-        switch (choice) {
-        case 1: {
+        switch (num) 
+        {
+        case 1:             // если "ввести полином"
+        {
             Polinom p;
             std::cout << "Введите полином:" << std::endl;
-            std::cin >> p;
-            polinoms.push_back(p);
+            std::cin >> p;              // вводим полином
+            polinoms.push_back(p);      
             std::cout << "Полином добавлен." << std::endl;
             break;
         }
-        case 2: {
-            if (polinoms.size() < 2) {
-                std::cout << "Необходимо ввести как минимум два полинома." << std::endl;
+        case 2:             // если "выполнить операцию над полиномами"
+        {
+            if (polinoms.empty()) 
+            {
+                std::cout << "Необходимо ввести хотя бы один полином." << std::endl;
                 break;
             }
 
@@ -49,65 +54,104 @@ int main() {
             int operation;
             std::cin >> operation;
 
-            std::cout << "Введите номера полиномов (начиная с 0): ";
-            int index1, index2;
-            std::cin >> index1 >> index2;
+            if (operation == 1 || operation == 2 || operation == 5)
+            {
+                if (polinoms.size() < 2)
+                {
+                    std::cout << "Для этой операции необходимо минимум два полинома." << std::endl;
+                    break;
+                }
+            }
 
-            if (index1 < 0 || index1 >= polinoms.size() || index2 < 0 || index2 >= polinoms.size()) {
-                std::cout << "Некорректные индексы полиномов." << std::endl;
+
+            std::cout << "Введите номер первого полинома (начиная с 0): ";
+            int index1, index2 = 0; // Инициализация index2, чтобы избежать неопределенного значения
+            std::cin >> index1;
+
+            if (index1 < 0 || index1 >= polinoms.size()) 
+            {
+                std::cout << "Некорректный индекс полинома." << std::endl;
                 break;
             }
 
-            switch (operation) {
-            case 1: {
+
+
+            if (operation == 1 || operation == 2 || operation == 5) 
+            {
+                std::cin >> index2;
+                if (index2 < 0 || index2 >= polinoms.size()) 
+                {
+                    std::cout << "Некорректный индекс полинома." << std::endl;
+                    break;
+                }
+            }
+
+            switch (operation)
+            {
+            case 1: 
+            {
                 Polinom sum = polinoms[index1] + polinoms[index2];
                 std::cout << "Сумма полиномов: " << sum << std::endl;
+                polinoms.push_back(sum); // Добавляем результат в вектор
+                std::cout << "Результат добавлен в вектор полиномов." << std::endl;
                 break;
             }
-            case 2: {
+            case 2: 
+            {
                 Polinom diff = polinoms[index1] - polinoms[index2];
                 std::cout << "Разность полиномов: " << diff << std::endl;
+                polinoms.push_back(diff); // Добавляем результат в вектор
+                std::cout << "Результат добавлен в вектор полиномов." << std::endl;
                 break;
             }
-            case 3: {
+            case 3: 
+            {
                 double constant;
                 std::cout << "Введите константу: ";
                 std::cin >> constant;
                 Polinom scaled = polinoms[index1] * constant;
                 std::cout << "Результат умножения на константу: " << scaled << std::endl;
+                polinoms.push_back(scaled); // Добавляем результат в вектор
+                std::cout << "Результат добавлен в вектор полиномов." << std::endl;
                 break;
             }
-            case 4: {
+            case 4: 
+            {
                 Monom mon;
                 std::cout << "Введите моном для умножения: " << std::endl;
                 std::cin >> mon;
                 Polinom product = polinoms[index1] * mon;
                 std::cout << "Результат умножения на моном: " << product << std::endl;
+                polinoms.push_back(product); // Добавляем результат в вектор
+                std::cout << "Результат добавлен в вектор полиномов." << std::endl;
                 break;
             }
-           /* case 5: {
+           /* case 5: 
+           {
                 Polinom product = polinoms[index1] * polinoms[index2];
                 std::cout << "Результат умножения полиномов: " << product << std::endl;
+                polinoms.push_back(product); // Добавляем результат в вектор
+                std::cout << "Результат добавлен в вектор полиномов." << std::endl;
                 break;
             }*/
-            default:
-                std::cout << "Некорректный выбор операции." << std::endl;
             }
             break;
         }
-        case 3: {
-            if (polinoms.empty()) {
+        case 3: 
+        {
+            if (polinoms.empty()) 
+            {
                 std::cout << "Полиномы не введены." << std::endl;
             }
-            else {
-                for (size_t i = 0; i < polinoms.size(); ++i) {
+            else 
+            {
+                for (int i = 0; i < polinoms.size(); i++) 
+                {
                     std::cout << "Полином " << i << ": " << polinoms[i] << std::endl;
                 }
             }
             break;
         }
-        default:
-            std::cout << "Некорректный выбор." << std::endl;
         }
     }
 

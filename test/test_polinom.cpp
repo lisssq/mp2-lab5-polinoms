@@ -359,3 +359,28 @@ TEST(Polinom, equality_operator_returns_true_for_equal_polinoms) {
     EXPECT_TRUE(p1 == p2);
     EXPECT_FALSE(p1 == p3);
 }
+
+// тест 22: проверка корректного отображения полинома с отрицательным мономом в середине
+TEST(Polinom, display_negative_monom_in_middle) 
+{
+    Polinom p;
+    p.addMonom(Monom(3, 3, 0, 0));
+    p.addMonom(Monom(-2, 2, 0, 0));
+    p.addMonom(Monom(1, 1, 1, 0));
+
+    std::stringstream ss;
+    ss << p;
+    EXPECT_EQ("3x^3y^0z^0 - 2x^2y^0z^0 + 1x^1y^1z^0", ss.str());
+}
+
+// тест 23: проверка корректного отображения полинома с отрицательным мономом в начале
+TEST(Polinom, display_negative_monom_at_beginning)
+{
+    Polinom p;
+    p.addMonom(Monom(-2, 2, 0, 0));
+    p.addMonom(Monom(1, 1, 1, 0));
+
+    std::stringstream ss;
+    ss << p;
+    EXPECT_EQ("-2x^2y^0z^0 + 1x^1y^1z^0", ss.str());
+}

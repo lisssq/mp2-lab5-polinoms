@@ -36,8 +36,23 @@ public:
 
 		while (tmp != nullptr)
 		{
-			if (!isFirst && tmp->val.coeff > 0)
-				out << " + ";
+			if (isFirst && tmp->val.coeff < 0)
+			{
+				out << "-"; // Минус без пробелов для первого отрицательного монома
+				tmp->val.coeff = std::abs(tmp->val.coeff); // Делаем коэффициент положительным для вывода
+			}
+			else if (!isFirst)
+			{
+				if (tmp->val.coeff > 0)
+				{
+					out << " + ";
+				}
+				else if (tmp->val.coeff < 0)
+				{
+					out << " - "; // Минус с пробелами для остальных отрицательных мономов
+					tmp->val.coeff = std::abs(tmp->val.coeff); // Делаем коэффициент положительным для вывода
+				}
+			}
 
 			out << tmp->val;
 
@@ -52,12 +67,14 @@ public:
 
 
 
-std::istream& operator>>(std::istream& in, Polinom& pol) {
+std::istream& operator>>(std::istream& in, Polinom& pol) 
+{
 	int numMonoms;
 	std::cout << "Введите количество мономов в полиноме: ";
 	in >> numMonoms;
 
-	for (int i = 0; i < numMonoms; ++i) {
+	for (int i = 0; i < numMonoms; ++i) 
+	{
 		Monom mon;
 		in >> mon;
 		pol.addMonom(mon);
