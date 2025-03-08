@@ -3,6 +3,8 @@
 #include <string.h>
 #include <string>
 #include <cmath>
+#include <string>
+#include <sstream> // Добавляем include для std::ostringstream
 #include <vector>
 #include "Monom.h"
 #include "List.h"
@@ -83,7 +85,12 @@ std::istream& operator>>(std::istream& in, Polinom& pol)
 }
 
 
-
+std::string toStr(const Polinom& p)
+{
+	std::ostringstream oss;
+	oss << p; // Вывод полинома в ostringstream
+	return oss.str();
+}
 
 
 

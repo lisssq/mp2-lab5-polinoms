@@ -165,18 +165,18 @@ TEST(Polinom, can_add_monoms_and_polinom_is_correctly_displayed)
     p.addMonom(Monom(1, 1, 1, 0));
     p.addMonom(Monom(2, 2, 0, 0));
 
-    std::stringstream ss;
-    ss << p;
-    EXPECT_EQ("2x^2y^0z^0 + 1x^1y^1z^0", ss.str());
+   /* std::stringstream ss;
+    ss << p;*/
+    EXPECT_EQ("2x^2y^0z^0 + 1x^1y^1z^0", toStr(p));
 }
 
 // тест 8: проверка на корректное отображение пустого полинома
 TEST(Polinom, can_add_monoms_and_polinom_is_correctly_displayed_for_zero_polinom)
 {
     Polinom p;
-    std::stringstream ss;
-    ss << p;
-    EXPECT_EQ("0", ss.str());
+  /*  std::stringstream ss;
+    ss << p;*/
+    EXPECT_EQ("0", toStr(p));
 }
 
 // тест 9: проверка сложения двух полиномов через "+"
@@ -187,8 +187,7 @@ TEST(Polinom, can_add_polinoms)
     p2.addMonom(Monom(2, 1, 1, 0));
 
     Polinom sum = p1 + p2;
-    sum.reset();
-    EXPECT_DOUBLE_EQ(3, sum.getCurrent().coeff);
+    EXPECT_EQ("3x^1y^1z^0", toStr(sum));
 }
 
 // тест 10: проверка сложения двух полиномов через "+="
@@ -199,8 +198,7 @@ TEST(Polinom, can_add_assign_polinoms)
     p2.addMonom(Monom(2, 1, 1, 0));
 
     p1 += p2;
-    p1.reset();
-    EXPECT_DOUBLE_EQ(3, p1.getCurrent().coeff);
+    EXPECT_EQ("3x^1y^1z^0", toStr(p1));
 }
 
 // тест 11: проверка вычитания двух полиномов
@@ -211,8 +209,7 @@ TEST(Polinom, can_subtract_polinoms)
     p2.addMonom(Monom(2, 1, 1, 0));
 
     Polinom diff = p1 - p2;
-    diff.reset();
-    EXPECT_DOUBLE_EQ(1, diff.getCurrent().coeff);
+    EXPECT_EQ("1x^1y^1z^0", toStr(diff));
 }
 
 // тест 12: проверка умножения полинома на число
@@ -222,8 +219,7 @@ TEST(Polinom, can_multiply_polinom_by_constant)
     p.addMonom(Monom(2, 1, 1, 0));
 
     Polinom scaled = p * 3.0;
-    scaled.reset();
-    EXPECT_DOUBLE_EQ(6, scaled.getCurrent().coeff);
+    EXPECT_EQ("6x^1y^1z^0", toStr(scaled));
 }
 
 // тест 13: проверка умножения полинома на моном
@@ -233,10 +229,7 @@ TEST(Polinom, can_multiply_polinom_by_monom)
     p.addMonom(Monom(2, 1, 1, 0));
     Monom m(3, 1, 0, 0);
     Polinom product = p * m;
-    product.reset();
-    EXPECT_DOUBLE_EQ(6, product.getCurrent().coeff);
-    EXPECT_EQ(2, product.getCurrent().x);
-    EXPECT_EQ(1, product.getCurrent().y);
+    EXPECT_EQ("6x^2y^1z^0", toStr(product));
 }
 
 
@@ -247,9 +240,7 @@ TEST(Polinom, can_add_empty_polinom)
     Polinom Q; // пустой
     P += Q;
 
-    std::stringstream ss;
-    ss << P;
-    EXPECT_EQ(ss.str(), "0"); // Должно остаться пустым
+    EXPECT_EQ("0", toStr(P)); 
 }
 
 // тест 15: проверка прибавление полинома без общих мономов
@@ -263,10 +254,7 @@ TEST(Polinom, can_add_polinom_without_common_monomials)
     Q.addMonom(Monom(5.0, 2, 0, 0)); // 5x²
 
     P += Q;
-
-    std::stringstream ss;
-    ss << P;
-    EXPECT_EQ(ss.str(), "5x^2y^0z^0 + 2x^1y^0z^0 + 3x^0y^1z^0 + 1x^0y^0z^2"); // Правильный порядок
+    EXPECT_EQ("5x^2y^0z^0 + 2x^1y^0z^0 + 3x^0y^1z^0 + 1x^0y^0z^2", toStr(P)); // Правильный порядок
 }
 
 // тест 16: проверка прибавление полинома с общими мономами
@@ -281,10 +269,7 @@ TEST(Polinom, can_add_polinom_with_common_monomials)
 
     P += Q;
 
-    std::stringstream ss;
-    ss << P;
-
-    EXPECT_EQ(ss.str(), "7x^0y^1z^0"); // x аннулируется, остается 7y
+    EXPECT_EQ("7x^0y^1z^0", toStr(P)); // x аннулируется, остается 7y
 }
 
 // тест 17: проверка добавления монома в начало полинома
@@ -295,9 +280,8 @@ TEST(Polinom, can_add_monom_to_beginning)
     p.addMonom(Monom(3.0, 3, 2, 1)); 
     p.addMonom(Monom(5.0, 5, 6, 7)); // Должен встать в начало
 
-    std::stringstream ss;
-    ss << p;
-    EXPECT_EQ(ss.str(), "5x^5y^6z^7 + 3x^3y^2z^1 + 1x^2y^1z^0");
+   
+    EXPECT_EQ("5x^5y^6z^7 + 3x^3y^2z^1 + 1x^2y^1z^0", toStr(p));
 }   
 
 // тест 18: проверка добавления монома в конец полинома
@@ -308,9 +292,7 @@ TEST(Polinom, can_add_monom_to_end)
     p.addMonom(Monom(1.0, 1, 5, 0)); 
     p.addMonom(Monom(7.0, 0, 1, 5));// Должен встать в конец
 
-    std::stringstream ss;
-    ss << p;
-    EXPECT_EQ(ss.str(), "3x^3y^2z^1 + 1x^1y^5z^0 + 7x^0y^1z^5");
+    EXPECT_EQ("3x^3y^2z^1 + 1x^1y^5z^0 + 7x^0y^1z^5", toStr(p));
 }
 
 // тест 19: проверка добавления монома в середину полинома
@@ -321,9 +303,7 @@ TEST(Polinom, can_add_monom_to_middle)
     p.addMonom(Monom(1.0, 1, 0, 0)); // Меньший
     p.addMonom(Monom(2.0, 2, 1, 0)); // Должен встать между
 
-    std::stringstream ss;
-    ss << p;
-    EXPECT_EQ(ss.str(), "3x^3y^2z^1 + 2x^2y^1z^0 + 1x^1y^0z^0");
+    EXPECT_EQ("3x^3y^2z^1 + 2x^2y^1z^0 + 1x^1y^0z^0", toStr(p));
 }
 
 // тест 20: проверка оператора присваивания полиномов
@@ -336,10 +316,7 @@ TEST(Polinom, assignment_operator_works_correctly)
 
     p2 = p1;
 
-    std::stringstream ss1, ss2;
-    ss1 << p1;
-    ss2 << p2;
-    EXPECT_EQ(ss1.str(), ss2.str());
+    EXPECT_EQ(toStr(p1), toStr(p2));
 }
 
 // тест 21: проверка оператора сравнения полиномов
@@ -368,9 +345,7 @@ TEST(Polinom, display_negative_monom_in_middle)
     p.addMonom(Monom(-2, 2, 0, 0));
     p.addMonom(Monom(1, 1, 1, 0));
 
-    std::stringstream ss;
-    ss << p;
-    EXPECT_EQ("3x^3y^0z^0 - 2x^2y^0z^0 + 1x^1y^1z^0", ss.str());
+    EXPECT_EQ("3x^3y^0z^0 - 2x^2y^0z^0 + 1x^1y^1z^0", toStr(p));
 }
 
 // тест 23: проверка корректного отображения полинома с отрицательным мономом в начале
@@ -380,7 +355,5 @@ TEST(Polinom, display_negative_monom_at_beginning)
     p.addMonom(Monom(-2, 2, 0, 0));
     p.addMonom(Monom(1, 1, 1, 0));
 
-    std::stringstream ss;
-    ss << p;
-    EXPECT_EQ("-2x^2y^0z^0 + 1x^1y^1z^0", ss.str());
+    EXPECT_EQ("-2x^2y^0z^0 + 1x^1y^1z^0", toStr(p));
 }
