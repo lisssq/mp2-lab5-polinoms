@@ -13,21 +13,24 @@ class Polinom : public List<Monom>
 {
 public:
 	Polinom();                                      // конструктор по умолчанию
+	Polinom(const Polinom& p);						// конструктор копирования
 	Polinom(Monom* p, int size);                    // конструктор с массивом мономов
-	void addMonom(Monom m);                        // добавление монома в полином
+	~Polinom();
 
-	Polinom operator+(Polinom& other);          // для сложения полиномов
-	Polinom operator-(Polinom& other);          // для вычитания полиномов
-	Polinom operator*(double constanta);       // умножение полинома на константу
-	Polinom operator*(Monom& m);              // умножение полинома на моном
-	bool operator==(Polinom& other);
+	void addMonom(Monom m);							// добавление монома в полином
+
+	Polinom operator+(Polinom& other);				// для сложения полиномов
+	Polinom operator-(Polinom& other);				// для вычитания полиномов
+	Polinom operator*(double constanta);		    // умножение полинома на константу
+	Polinom operator*(Monom& m);					// умножение полинома на моном
+	bool operator==(Polinom& other);	
+	//Polinom operator*(Polinom& p);
 
 	Polinom& operator+=(Polinom& pol);
 
-
 	friend std::ostream& operator<<(std::ostream& out, const Polinom& p) 
 	{
-		if (p.pFirst == nullptr) 
+		if (p.pFirst == nullptr)				// если полином пуст, то выводим ноль
 		{
 			out << "0";
 			return out;
@@ -40,8 +43,8 @@ public:
 		{
 			if (isFirst && tmp->val.coeff < 0)
 			{
-				out << "-"; // Минус без пробелов для первого отрицательного монома
-				tmp->val.coeff = std::abs(tmp->val.coeff); // Делаем коэффициент положительным для вывода
+				out << "-";										// минус без пробелов для первого отрицательного монома
+				tmp->val.coeff = std::abs(tmp->val.coeff);		// делаем коэффициент положительным для вывода
 			}
 			else if (!isFirst)
 			{
@@ -51,25 +54,21 @@ public:
 				}
 				else if (tmp->val.coeff < 0)
 				{
-					out << " - "; // Минус с пробелами для остальных отрицательных мономов
-					tmp->val.coeff = std::abs(tmp->val.coeff); // Делаем коэффициент положительным для вывода
+					out << " - ";								// минус с пробелами для остальных отрицательных мономов
+					tmp->val.coeff = std::abs(tmp->val.coeff);	// делаем коэффициент положительным для вывода
 				}
 			}
-
 			out << tmp->val;
-
 			tmp = tmp->pNext;
 			isFirst = false;
 		}
-
 		return out;
 	}
-
 };
 
 
 
-std::istream& operator>>(std::istream& in, Polinom& pol) 
+std::istream& operator>>(std::istream& in, Polinom& pol)		// ввод мономов в полином
 {
 	int numMonoms;
 	std::cout << "Введите количество мономов в полиноме: ";
@@ -94,16 +93,12 @@ std::string toStr(const Polinom& p)
 
 
 
-
-
-
-//Polinom::Polinom() : List<Monom>() {}           // конструктор по умолчанию (создаёт пустой полином)
-
 Polinom::Polinom() {};
 
-//Polinom::Polinom(const Polinom& other) : List<Monom>(other) {
-//    std::cout << "Конструктор копирования Polinom: " << *this << std::endl;
-//}
+Polinom::Polinom(const Polinom& p) : List<Monom>(p)
+{
+}
+
 
 Polinom::Polinom(Monom* p, int size)            // конструктор с массивом мономов
 {
@@ -115,6 +110,10 @@ Polinom::Polinom(Monom* p, int size)            // конструктор с массивом мономо
 	}
 }
 
+Polinom::~Polinom()
+{
+}
+
 void Polinom::addMonom(Monom m)                 // добавление монома в полином
 {
 	if (pFirst == nullptr)                      // если список пуст, добавляем в конец
@@ -123,57 +122,54 @@ void Polinom::addMonom(Monom m)                 // добавление монома в полином
 		return;
 	}
 
-	reset();
+	reset();									// возвращаемся в начало списка
 
-	while (!isEnd() && pCurr->val > m)
-	{
-		goNext();
+	while (!isEnd() && pCurr->val > m)			// пока не конец списка и текущий моном больше добавляемого
+	{	
+		goNext();								// идем дальше
 	}
 
-	if (!isEnd() && pCurr->val == m)
+	if (!isEnd() && pCurr->val == m)			// если текущее и добавляемый моном равны, то 
 	{
-		pCurr->val.coeff += m.coeff;
+		pCurr->val.coeff += m.coeff;			// складываем коэффициенты
 
-		if (pCurr->val.coeff == 0) 
+		if (pCurr->val.coeff == 0)				// если он занулился - удаляем
 		{
 			delCurr();
 		}
 	}
-	else                 // если моном больше текущего, вставляем перед ним
+	else										// если моном больше текущего, вставляем перед ним
 	{
 		Node<Monom>* tmp = new Node<Monom>{ m, pCurr }; // создаем новый узел
 
-		if (pPrev == nullptr)
+		if (pPrev == nullptr)					// если моном должен стать первым
 		{
 			pFirst = tmp;
 		}
-		else {
-			pPrev->pNext = tmp;
+		else 
+		{
+			pPrev->pNext = tmp;					// иначе связываем предыдущий элемент с новым
 		}
 
-		if (pCurr == nullptr)
+		if (pCurr == nullptr)					// если новый моном должен быть последний
 		{
 			pLast = tmp;
 		}
-
 		sz++;
 	}
-
-	
 }
 
 
 
 Polinom Polinom::operator+(Polinom& other)
 {
-	Polinom res(*this);  // Копируем текущий полином
+	Polinom res(*this);						// копируем текущий полином
 
 	for (other.reset(); !other.isEnd(); other.goNext())
 	{
-		Monom tmp = other.getCurrent();
-		res.addMonom(tmp);  // Добавляем текущий моном
+		Monom tmp = other.getCurrent();		// получаем текущий моном
+		res.addMonom(tmp);					// добавляем текущий моном в результат
 	}
-
 	return res;
 }
 
@@ -183,7 +179,7 @@ Polinom Polinom::operator-(Polinom& other)
 	for (other.reset(); !other.isEnd(); other.goNext())
 	{
 		Monom tmp = other.getCurrent();
-		tmp.coeff = -tmp.coeff;     //меняем коэффициент у монома
+		tmp.coeff = -tmp.coeff;				// меняем коэффициент у монома
 		res.addMonom(tmp);
 	}
 	return res;
@@ -203,7 +199,7 @@ Polinom Polinom::operator*(double constanta)
 }
 
 
-Polinom Polinom:: operator*( Monom& m)
+Polinom Polinom:: operator*(Monom& m)
 {
 	Polinom res;
 	for (reset(); !isEnd(); goNext())
@@ -220,11 +216,11 @@ Polinom Polinom:: operator*( Monom& m)
 
 bool Polinom :: operator==(Polinom& other)
 {
-	if (sz != other.sz)
+	if (sz != other.sz)							// если размеры полиномов не равны, то сами полиномы очевидно тоже
 	{
 		return false;
 	}
-	reset();
+	reset();									// идем в начало обоих полиномов
 	other.reset();
 	while (!isEnd())
 	{
@@ -284,3 +280,29 @@ Polinom& Polinom:: operator+=(Polinom& pol) {
 	*this = res;
 	return *this;
 }
+
+
+
+
+//Polinom Polinom::operator*(Polinom& p)
+//{
+//	if (isEmpty())						// проверяем пуст ли текущий полином
+//	{ 
+//		return *this;
+//	}
+//	if (p.isEmpty())					// проверяем пуст ли другой полином	
+//	{ 
+//		return Polinom(); // Возвращаем пустой полином
+//	}
+//	Polinom res;
+//	for (p.reset(); !p.isEmpty(); p.goNext())
+//	{
+//		Polinom tmp(*this);
+//		Monom m = p.getCurrent();		// получаем текущий моном из полинома p
+//		Polinom pp = tmp * m;			// умножаем копию на моном
+//		res += pp;						// добавляем результат к результирующему полиному
+//	}
+//	//*this = Polinom();					// oчищаем текущий полином, создав пустой полином и присвоив его текущему полиному
+//	//*this += res;						// используем уже существующий оператор += для сложения полиномов
+//	return res;
+//}

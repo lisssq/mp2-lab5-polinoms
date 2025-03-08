@@ -14,7 +14,6 @@ struct Monom
 public:
 
 	Monom();		// моном с нулевыми параметрами	
-
 	Monom(double _coeff, int x, int y, int z);
 
 	void SetCoeff(double _coeff);
@@ -31,7 +30,7 @@ public:
 
 
 
-std::istream& operator>>(std::istream& in, Monom& mon) 
+std::istream& operator>>(std::istream& in, Monom& mon)				// ввод монома
 {
 	std::cout << "Введите коэффициент: ";
 	in >> mon.coeff;
@@ -47,11 +46,19 @@ std::istream& operator>>(std::istream& in, Monom& mon)
 
 std::ostream& operator<<(std::ostream& out, const Monom& mon)
 {
-	if (&mon == nullptr) {
+	if (&mon == nullptr) 
+	{
 		out << "nullptr";
 		return out;
 	}
-	out << mon.coeff << "x^" << mon.x << "y^" << mon.y << "z^" << mon.z;
+	if (mon.coeff == 0)
+	{
+		out << "0";
+	}
+	else
+	{
+		out << mon.coeff << "x^" << mon.x << "y^" << mon.y << "z^" << mon.z;
+	}
 	return out;
 }
 
