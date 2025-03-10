@@ -357,3 +357,51 @@ TEST(Polinom, display_negative_monom_at_beginning)
 
     EXPECT_EQ("-2x^2y^0z^0 + 1x^1y^1z^0", toStr(p));
 }
+
+// тест 24: проверка вычитания полинома без общих мономов через "-="
+TEST(Polinom, can_subtract_assign_polinom_without_common_monomials)
+{
+    Polinom P, Q;
+    P.addMonom(Monom(2.0, 1, 0, 0)); // 2x
+    P.addMonom(Monom(3.0, 0, 1, 0)); // 3y
+
+    Q.addMonom(Monom(1.0, 0, 0, 2)); // z²
+    Q.addMonom(Monom(5.0, 2, 0, 0)); // 5x²
+
+    P -= Q;
+    EXPECT_EQ("-5x^2y^0z^0 + 2x^1y^0z^0 + 3x^0y^1z^0 - 1x^0y^0z^2", toStr(P));
+}
+
+// тест 25: проверка вычитания полинома с общими мономами через "-="
+TEST(Polinom, can_subtract_assign_polinom_with_common_monomials)
+{
+    Polinom P, Q;
+    P.addMonom(Monom(2.0, 1, 0, 0));  // 2x
+    P.addMonom(Monom(3.0, 0, 1, 0));  // 3y
+
+    Q.addMonom(Monom(2.0, 1, 0, 0));  // 2x
+    Q.addMonom(Monom(4.0, 0, 1, 0));  // 4y
+
+    P -= Q;
+    EXPECT_EQ("-1x^0y^1z^0", toStr(P)); // 3y - 4y = -1y
+}
+
+// тест 26: проверка вычитания пустого полинома через "-="
+TEST(Polinom, can_subtract_assign_empty_polinom)
+{
+    Polinom P, Q;
+    P.addMonom(Monom(1.0, 1, 0, 0)); // x
+
+    P -= Q;
+    EXPECT_EQ("1x^1y^0z^0", toStr(P)); // x - 0 = x
+}
+
+// тест 27: проверка вычитания полинома из пустого полинома через "-="
+TEST(Polinom, can_subtract_assign_polinom_from_empty)
+{
+    Polinom P, Q;
+    Q.addMonom(Monom(1.0, 1, 0, 0)); // x
+
+    P -= Q;
+    EXPECT_EQ("-1x^1y^0z^0", toStr(P)); // 0 - x = -x
+}

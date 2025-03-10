@@ -27,6 +27,7 @@ public:
 	//Polinom operator*(Polinom& p);
 
 	Polinom& operator+=(Polinom& pol);
+	Polinom& operator-=(Polinom& pol);
 
 	friend std::ostream& operator<<(std::ostream& out, const Polinom& p) 
 	{
@@ -280,6 +281,78 @@ Polinom& Polinom:: operator+=(Polinom& pol) {
 	*this = res;
 	return *this;
 }
+
+
+
+
+
+Polinom& Polinom::operator-=(Polinom& pol) 
+{
+	Polinom res;
+	this->reset();
+	pol.reset();
+
+	while (!this->isEnd() || !pol.isEnd()) 
+	{
+		if (this->isEnd()) 
+		{
+			if (!pol.isEnd()) 
+			{
+				Monom tmp = pol.getCurrent();
+				tmp.coeff = -tmp.coeff;				// изменяем знак коэффициента
+				res.addMonom(tmp);
+				pol.goNext();
+			}
+		}
+		else if (pol.isEnd())
+		{
+			res.addMonom(this->getCurrent());
+			this->goNext();
+		}
+		else if (pol.getCurrent() > this->getCurrent()) 
+		{
+			Monom tmp = pol.getCurrent();
+			tmp.coeff = -tmp.coeff;						// изменяем знак коэффициента
+			res.addMonom(tmp);
+			pol.goNext();
+		}
+		else if (this->getCurrent() > pol.getCurrent()) 
+		{
+			res.addMonom(this->getCurrent());
+			this->goNext();
+		}
+		else {
+			Monom sum = this->getCurrent();
+			sum.coeff -= pol.getCurrent().coeff;		// вычитаем коэффициенты
+			if (sum.coeff != 0) 
+			{
+				res.addMonom(sum);
+			}
+			this->goNext();
+			pol.goNext();
+		}
+	}
+	*this = res;
+	return *this;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
