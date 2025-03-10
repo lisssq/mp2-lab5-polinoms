@@ -24,8 +24,7 @@ public:
 	Polinom operator*(double constanta);		    // умножение полинома на константу
 	Polinom operator*(Monom& m);					// умножение полинома на моном
 	bool operator==(Polinom& other);	
-	//Polinom operator*(Polinom& p);
-
+	
 	Polinom& operator+=(Polinom& pol);
 	Polinom& operator-=(Polinom& pol);
 
@@ -161,7 +160,6 @@ void Polinom::addMonom(Monom m)                 // добавление монома в полином
 }
 
 
-
 Polinom Polinom::operator+(Polinom& other)
 {
 	Polinom res(*this);						// копируем текущий полином
@@ -283,9 +281,6 @@ Polinom& Polinom:: operator+=(Polinom& pol) {
 }
 
 
-
-
-
 Polinom& Polinom::operator-=(Polinom& pol) 
 {
 	Polinom res;
@@ -321,7 +316,8 @@ Polinom& Polinom::operator-=(Polinom& pol)
 			res.addMonom(this->getCurrent());
 			this->goNext();
 		}
-		else {
+		else 
+		{
 			Monom sum = this->getCurrent();
 			sum.coeff -= pol.getCurrent().coeff;		// вычитаем коэффициенты
 			if (sum.coeff != 0) 
