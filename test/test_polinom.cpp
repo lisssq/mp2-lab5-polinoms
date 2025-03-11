@@ -1,4 +1,6 @@
-﻿#include "..\polinom\Polinom.h"
+﻿#include "..\polinom\Monom.h"
+#include "..\polinom\Monom.cpp"
+#include "..\polinom\Polinom.h"
 #include <string>
 #include <iostream>
 #include <string.h>

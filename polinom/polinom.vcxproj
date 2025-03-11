@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Monom.cpp" />
     <ClCompile Include="Monom.h" />
   </ItemGroup>
   <ItemGroup>

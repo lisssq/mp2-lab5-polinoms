@@ -27,9 +27,47 @@ public:
 	Polinom& operator+=(Polinom& pol);
 	Polinom& operator-=(Polinom& pol);
 
-	friend std::ostream& operator<<(std::ostream& out, const Polinom& p) 
+	//friend std::ostream& operator<<(std::ostream& out, const Polinom& p) 
+	//{
+	//	if (p.pFirst == nullptr)				// если полином пуст, то выводим ноль
+	//	{
+	//		out << "0";
+	//		return out;
+	//	}
+
+	//	Node<Monom>* tmp = p.pFirst;
+	//	bool isFirst = true;
+
+	//	while (tmp != nullptr)
+	//	{
+	//		if (isFirst && tmp->val.coeff < 0)
+	//		{
+	//			out << "-";										// минус без пробелов для первого отрицательного монома
+	//			tmp->val.coeff = std::abs(tmp->val.coeff);		// делаем коэффициент положительным для вывода
+	//		}
+	//		else if (!isFirst)
+	//		{
+	//			if (tmp->val.coeff > 0)
+	//			{
+	//				out << " + ";
+	//			}
+	//			else if (tmp->val.coeff < 0)
+	//			{
+	//				out << " - ";								// минус с пробелами для остальных отрицательных мономов
+	//				tmp->val.coeff = std::abs(tmp->val.coeff);	// делаем коэффициент положительным для вывода
+	//			}
+	//		}
+	//		out << tmp->val;
+	//		tmp = tmp->pNext;
+	//		isFirst = false;
+	//	}
+	//	return out;
+	//}
+
+
+	friend std::ostream& operator<<(std::ostream& out, const Polinom& p)
 	{
-		if (p.pFirst == nullptr)				// если полином пуст, то выводим ноль
+		if (p.pFirst == nullptr) // Если полином пуст, выводим ноль
 		{
 			out << "0";
 			return out;
@@ -40,29 +78,40 @@ public:
 
 		while (tmp != nullptr)
 		{
-			if (isFirst && tmp->val.coeff < 0)
+			double coeff = tmp->val.coeff;
+
+			if (isFirst)
 			{
-				out << "-";										// минус без пробелов для первого отрицательного монома
-				tmp->val.coeff = std::abs(tmp->val.coeff);		// делаем коэффициент положительным для вывода
+				if (coeff < 0) {
+					out << "-";
+					coeff = -coeff;
+				}
 			}
-			else if (!isFirst)
+			else
 			{
-				if (tmp->val.coeff > 0)
-				{
+				if (coeff > 0) {
 					out << " + ";
 				}
-				else if (tmp->val.coeff < 0)
-				{
-					out << " - ";								// минус с пробелами для остальных отрицательных мономов
-					tmp->val.coeff = std::abs(tmp->val.coeff);	// делаем коэффициент положительным для вывода
+				else if (coeff < 0) {
+					out << " - ";
+					coeff = -coeff;
 				}
 			}
-			out << tmp->val;
+
+			out << coeff; // Выводим коэффициент
+
+			// Выводим степени x, y, z, если они ненулевые
+			out << "x^" << tmp->val.x;
+			out << "y^" << tmp->val.y;
+			out << "z^" << tmp->val.z;
+
 			tmp = tmp->pNext;
 			isFirst = false;
 		}
+
 		return out;
 	}
+
 };
 
 
