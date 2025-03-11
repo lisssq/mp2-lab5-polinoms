@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <locale.h>
-#include "Monom.h"
 #include "Polinom.h"
 
 int main() 
@@ -163,6 +162,3 @@ int main()
 
     return 0;
 }
-
-
-// сделать оператор -=

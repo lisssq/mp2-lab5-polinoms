@@ -7,7 +7,6 @@
 #include <sstream> // Добавляем include для std::ostringstream
 #include <vector>
 #include "Monom.h"
-#include "List.h"
 
 class Polinom : public List<Monom>
 {
