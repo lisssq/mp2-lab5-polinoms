@@ -22,47 +22,10 @@ public:
 	Polinom operator-(Polinom& other);				// для вычитания полиномов
 	Polinom operator*(double constanta);		    // умножение полинома на константу
 	Polinom operator*(Monom& m);					// умножение полинома на моном
-	bool operator==(Polinom& other);	
-	
+	bool operator==(Polinom& other);
+
 	Polinom& operator+=(Polinom& pol);
 	Polinom& operator-=(Polinom& pol);
-
-	//friend std::ostream& operator<<(std::ostream& out, const Polinom& p) 
-	//{
-	//	if (p.pFirst == nullptr)				// если полином пуст, то выводим ноль
-	//	{
-	//		out << "0";
-	//		return out;
-	//	}
-
-	//	Node<Monom>* tmp = p.pFirst;
-	//	bool isFirst = true;
-
-	//	while (tmp != nullptr)
-	//	{
-	//		if (isFirst && tmp->val.coeff < 0)
-	//		{
-	//			out << "-";										// минус без пробелов для первого отрицательного монома
-	//			tmp->val.coeff = std::abs(tmp->val.coeff);		// делаем коэффициент положительным для вывода
-	//		}
-	//		else if (!isFirst)
-	//		{
-	//			if (tmp->val.coeff > 0)
-	//			{
-	//				out << " + ";
-	//			}
-	//			else if (tmp->val.coeff < 0)
-	//			{
-	//				out << " - ";								// минус с пробелами для остальных отрицательных мономов
-	//				tmp->val.coeff = std::abs(tmp->val.coeff);	// делаем коэффициент положительным для вывода
-	//			}
-	//		}
-	//		out << tmp->val;
-	//		tmp = tmp->pNext;
-	//		isFirst = false;
-	//	}
-	//	return out;
-	//}
 
 
 	friend std::ostream& operator<<(std::ostream& out, const Polinom& p)
@@ -75,45 +38,57 @@ public:
 
 		Node<Monom>* tmp = p.pFirst;
 		bool isFirst = true;
+		bool hasNonZero = false; // Флаг для проверки, есть ли ненулевые мономы
 
 		while (tmp != nullptr)
 		{
 			double coeff = tmp->val.coeff;
 
-			if (isFirst)
+			if (coeff != 0) // Проверяем, что коэффициент не равен нулю
 			{
-				if (coeff < 0) {
-					out << "-";
-					coeff = -coeff;
-				}
-			}
-			else
-			{
-				if (coeff > 0) {
-					out << " + ";
-				}
-				else if (coeff < 0) {
-					out << " - ";
-					coeff = -coeff;
-				}
-			}
+				hasNonZero = true; // Устанавливаем флаг, если нашли ненулевой моном
 
-			out << coeff; // Выводим коэффициент
+				if (isFirst)
+				{
+					if (coeff < 0)
+					{
+						out << "-";
+						coeff = -coeff;
+					}
+				}
+				else
+				{
+					if (coeff > 0)
+					{
+						out << " + ";
+					}
+					else if (coeff < 0)
+					{
+						out << " - ";
+						coeff = -coeff;
+					}
+				}
 
-			// Выводим степени x, y, z, если они ненулевые
-			out << "x^" << tmp->val.x;
-			out << "y^" << tmp->val.y;
-			out << "z^" << tmp->val.z;
+				out << coeff; // Выводим коэффициент
+
+				// Выводим степени x, y, z
+				out << "x^" << tmp->val.x;
+				out << "y^" << tmp->val.y;
+				out << "z^" << tmp->val.z;
+			}
 
 			tmp = tmp->pNext;
 			isFirst = false;
 		}
 
+		if (!hasNonZero) // Если не было ненулевых мономов, выводим "0"
+		{
+			out << "0";
+		}
+
 		return out;
 	}
-
 };
-
 
 
 std::istream& operator>>(std::istream& in, Polinom& pol)		// ввод мономов в полином
@@ -135,7 +110,7 @@ std::istream& operator>>(std::istream& in, Polinom& pol)		// ввод мономов в поли
 std::string toStr(const Polinom& p)
 {
 	std::ostringstream oss;
-	oss << p; // Вывод полинома в ostringstream
+	oss << p;				// вывод полинома в ostringstream
 	return oss.str();
 }
 
@@ -400,26 +375,3 @@ Polinom& Polinom::operator-=(Polinom& pol)
 
 
 
-
-//Polinom Polinom::operator*(Polinom& p)
-//{
-//	if (isEmpty())						// проверяем пуст ли текущий полином
-//	{ 
-//		return *this;
-//	}
-//	if (p.isEmpty())					// проверяем пуст ли другой полином	
-//	{ 
-//		return Polinom(); // Возвращаем пустой полином
-//	}
-//	Polinom res;
-//	for (p.reset(); !p.isEmpty(); p.goNext())
-//	{
-//		Polinom tmp(*this);
-//		Monom m = p.getCurrent();		// получаем текущий моном из полинома p
-//		Polinom pp = tmp * m;			// умножаем копию на моном
-//		res += pp;						// добавляем результат к результирующему полиному
-//	}
-//	//*this = Polinom();					// oчищаем текущий полином, создав пустой полином и присвоив его текущему полиному
-//	//*this += res;						// используем уже существующий оператор += для сложения полиномов
-//	return res;
-//}

@@ -405,3 +405,51 @@ TEST(Polinom, can_subtract_assign_polinom_from_empty)
     P -= Q;
     EXPECT_EQ("-1x^1y^0z^0", toStr(P)); // 0 - x = -x
 }
+
+// тест 28: проверка умножения полинома на 0
+TEST(Polinom, multiply_polinom_by_zero) 
+{
+    Polinom p;
+    p.addMonom(Monom(1.0, 1, 0, 0));
+    p.addMonom(Monom(2.0, 2, 0, 0));
+
+    Polinom result = p * 0.0;
+
+    EXPECT_EQ("0", toStr(result));
+}
+
+// тест 29: проверка умножения полинома на моном с нулевым коэффициентом
+TEST(Polinom, multiply_polinom_by_monom_with_zero_coeff)
+{
+    Polinom p;
+    p.addMonom(Monom(1.0, 1, 0, 0));
+    Monom m(0.0, 1, 0, 0);
+
+    Polinom result = p * m;
+
+    EXPECT_EQ("0", toStr(result));
+}
+
+// тест 30: проверка сложения полиномов с мономами разных степеней
+TEST(Polinom, add_polinoms_with_different_degrees) 
+{
+    Polinom p1, p2;
+    p1.addMonom(Monom(1.0, 1, 0, 0));
+    p2.addMonom(Monom(2.0, 2, 0, 0));
+
+    Polinom sum = p1 + p2;
+
+    EXPECT_EQ("2x^2y^0z^0 + 1x^1y^0z^0", toStr(sum));
+}
+
+// тест 31: проверка вычитания полиномов с мономами разных степеней
+TEST(Polinom, subtract_polinoms_with_different_degrees) 
+{
+    Polinom p1, p2;
+    p1.addMonom(Monom(2.0, 2, 0, 0));
+    p2.addMonom(Monom(1.0, 1, 0, 0));
+
+    Polinom diff = p1 - p2;
+
+    EXPECT_EQ("2x^2y^0z^0 - 1x^1y^0z^0", toStr(diff));
+}

@@ -1,9 +1,7 @@
 #include "Monom.h"
 
-// Конструктор по умолчанию
 Monom::Monom() : coeff(0), x(0), y(0), z(0) {}
 
-// Конструктор с параметрами
 Monom::Monom(double _coeff, int _x, int _y, int _z)
     : coeff(_coeff), x(_x), y(_y), z(_z) {}
 
