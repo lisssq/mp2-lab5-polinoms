@@ -26,7 +26,7 @@ public:
 
 	Polinom& operator+=(Polinom& pol);
 	Polinom& operator-=(Polinom& pol);
-
+	Polinom operator*(Polinom& pol);
 
 	friend std::ostream& operator<<(std::ostream& out, const Polinom& p)
 	{
@@ -359,19 +359,20 @@ Polinom& Polinom::operator-=(Polinom& pol)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Polinom Polinom::operator*(Polinom& pol)
+{
+	Polinom res;
+	for (reset(); !isEnd(); goNext()) 
+	{
+		Monom m1 = getCurrent();
+		pol.reset();				// сбрасываем итератор второго полинома в начало
+		while (!pol.isEnd())		// еачинаем перебор мономов второго полинома
+		{
+			Monom m2 = pol.getCurrent();
+			Monom mult(m1.coeff * m2.coeff, m1.x + m2.x, m1.y + m2.y, m1.z + m2.z);
+			res.addMonom(mult);
+			pol.goNext();
+		}
+	}
+	return res;
+}

@@ -49,7 +49,7 @@ int main()
             std::cout << "2. Вычитание полиномов" << std::endl;
             std::cout << "3. Умножение полинома на константу" << std::endl;
             std::cout << "4. Умножение полинома на моном" << std::endl;
-            //std::cout << "5. Умножение полиномов" << std::endl;
+            std::cout << "5. Умножение полиномов" << std::endl;
 
             int operation;
             std::cin >> operation;                          // вводим номер операции
@@ -129,15 +129,15 @@ int main()
                 std::cout << "Результат добавлен в вектор полиномов." << std::endl;
                 break;
             }
-            // case 5:
-            //{
-            //     Polinom mulByPolinom = polinoms[index1] * polinoms[index2];
-            //     std::cout << "Результат умножения полиномов: " << mulByPolinom << std::endl;
+             case 5:
+            {
+                 Polinom mulByPolinom = polinoms[index1] * polinoms[index2];
+                 std::cout << "Результат умножения полиномов: " << mulByPolinom << std::endl;
 
-            //     polinoms.push_back(mulByPolinom); // Добавляем результат в вектор
-            //     std::cout << "Результат добавлен в вектор полиномов." << std::endl;
-            //     break;
-            // }
+                 polinoms.push_back(mulByPolinom); // Добавляем результат в вектор
+                 std::cout << "Результат добавлен в вектор полиномов." << std::endl;
+                 break;
+             }
             }
             break;
         }

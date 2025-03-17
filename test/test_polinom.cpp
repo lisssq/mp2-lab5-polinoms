@@ -453,3 +453,70 @@ TEST(Polinom, subtract_polinoms_with_different_degrees)
 
     EXPECT_EQ("2x^2y^0z^0 - 1x^1y^0z^0", toStr(diff));
 }
+
+// Тест 32: проверка умножения полинома на пустой полином
+TEST(Polinom, multiply_polinom_by_empty_polinom) 
+{
+    Polinom p1, p2;
+
+    p1.addMonom(Monom(2, 1, 0, 0));
+    p1.addMonom(Monom(3, 0, 1, 0));
+
+    Polinom result = p1 * p2;
+
+    EXPECT_EQ("0", toStr(result));
+}
+
+// Тест 33: проверка умножения полинома на полином
+TEST(Polinom, multiply_polinom_by_polinom)
+{
+    Polinom p1, p2;
+
+    // p1 = 2x + 3y
+    p1.addMonom(Monom(2, 1, 0, 0));
+    p1.addMonom(Monom(3, 0, 1, 0));
+
+    // p2 = z + 4x^2
+    p2.addMonom(Monom(1, 0, 0, 1));
+    p2.addMonom(Monom(4, 2, 0, 0));
+
+    Polinom result = p1 * p2;
+
+    EXPECT_EQ("8x^3y^0z^0 + 12x^2y^1z^0 + 2x^1y^0z^1 + 3x^0y^1z^1", toStr(result));
+}
+
+// Тест 34: проверка умножения полинома на полином с отрицательными коэффициентами
+TEST(Polinom, multiply_polinom_by_polinom_with_negative_coefficients) 
+{
+    Polinom p1, p2;
+
+    // p1 = -2x + 3y
+    p1.addMonom(Monom(-2, 1, 0, 0));
+    p1.addMonom(Monom(3, 0, 1, 0));
+
+    // p2 = z - 4x^2
+    p2.addMonom(Monom(1, 0, 0, 1));
+    p2.addMonom(Monom(-4, 2, 0, 0));
+
+    Polinom result = p1 * p2;
+
+    EXPECT_EQ("8x^3y^0z^0 - 12x^2y^1z^0 - 2x^1y^0z^1 + 3x^0y^1z^1", toStr(result));
+}
+
+// Тест 35: проверка умножения полинома на полином с мономами одинаковых степеней
+TEST(Polinom, multiply_polinom_by_polinom_with_same_degrees)
+{
+    Polinom p1, p2;
+
+    // p1 = x + x = 2x
+    p1.addMonom(Monom(1, 1, 0, 0));
+    p1.addMonom(Monom(1, 1, 0, 0));
+
+    // p2 = x + x = 2x
+    p2.addMonom(Monom(1, 1, 0, 0));
+    p2.addMonom(Monom(1, 1, 0, 0));
+
+    Polinom result = p1 * p2;
+
+    EXPECT_EQ("4x^2y^0z^0", toStr(result));
+}
