@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -11,8 +11,8 @@ struct Monom
     int x, y, z;
 
 public:
-    Monom();                              // Объявление конструктора по умолчанию
-    Monom(double _coeff, int x, int y, int z); // Объявление конструктора с параметрами
+    Monom();                              // oР±СЉСЏРІР»РµРЅРёРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+    Monom(double _coeff, int x, int y, int z); // oР±СЉСЏРІР»РµРЅРёРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
 
     void SetCoeff(double _coeff);
     void SetXYZ(int _x, int _y, int _z);

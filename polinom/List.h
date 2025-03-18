@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <string.h>
 #include <string>
@@ -9,48 +9,48 @@
 template <typename T>
 struct Node
 {
-	T val;			// значение в узле
-	Node* pNext;	// указатель на след.узел
+	T val;			// Р·РЅР°С‡РµРЅРёРµ РІ СѓР·Р»Рµ
+	Node* pNext;	// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґ.СѓР·РµР»
 
-	Node() : pNext(nullptr) {} // Конструктор по умолчанию (инициализирует только указатель)
+	Node() : pNext(nullptr) {} // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ (РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ С‚РѕР»СЊРєРѕ СѓРєР°Р·Р°С‚РµР»СЊ)
 
-	Node(const T& value, Node* next = nullptr) : val(value), pNext(next) {} // Конструктор с параметром
+	Node(const T& value, Node* next = nullptr) : val(value), pNext(next) {} // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂРѕРј
 };
 
 
 template <typename T>
-class List			// класс списка
+class List			// РєР»Р°СЃСЃ СЃРїРёСЃРєР°
 {
 protected:
-	Node<T>* pFirst;		// указатель на первый элемент
-	Node<T>* pLast;			// указатель на последний элемент
+	Node<T>* pFirst;		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
+	Node<T>* pLast;			// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
 	Node<T>* pCurr;
 	Node<T>* pPrev;
-	int sz;					// кол-во элементов в списке
+	int sz;					// РєРѕР»-РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ СЃРїРёСЃРєРµ
 
 public:
 
-	List();					// пустой список 
+	List();					// РїСѓСЃС‚РѕР№ СЃРїРёСЃРѕРє 
 	~List();
 
 	List(const List& other);
 
-	void insFirst(T elem);	// добавление элемента в начало списка
-	void delFirst();		// удаление элемента из начала списка
-	void insLast(T elem);	// добавление элемента в конец списка
-	void delLast();			// удаление элемента из конца списка
-	void delCurr();			// удалить текущий элемент списка
+	void insFirst(T elem);	// РґРѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
+	void delFirst();		// СѓРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РёР· РЅР°С‡Р°Р»Р° СЃРїРёСЃРєР°
+	void insLast(T elem);	// РґРѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
+	void delLast();			// СѓРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РёР· РєРѕРЅС†Р° СЃРїРёСЃРєР°
+	void delCurr();			// СѓРґР°Р»РёС‚СЊ С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР°
 	void insCurr(T elem);
 
 
-	bool isEmpty() const;	// проверка на пустоту
+	bool isEmpty() const;	// РїСЂРѕРІРµСЂРєР° РЅР° РїСѓСЃС‚РѕС‚Сѓ
 
 
-	void reset();			// устанавливает итератор в начало
-	void goNext();			// переход к следующему элементу
-	bool isEnd();			// проверка достигнут ли конец списка
+	void reset();			// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РІ РЅР°С‡Р°Р»Рѕ
+	void goNext();			// РїРµСЂРµС…РѕРґ Рє СЃР»РµРґСѓСЋС‰РµРјСѓ СЌР»РµРјРµРЅС‚Сѓ
+	bool isEnd();			// РїСЂРѕРІРµСЂРєР° РґРѕСЃС‚РёРіРЅСѓС‚ Р»Рё РєРѕРЅРµС† СЃРїРёСЃРєР°
 
-	T getCurrent();		// получить текущее значение	
+	T getCurrent();		// РїРѕР»СѓС‡РёС‚СЊ С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ	
 
 
 	List& operator=(const List& other);
@@ -59,15 +59,15 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const List<T>& list)
 	{
-		Node<T>* tmp = list.pFirst;				// начинаем с первого элемента
+		Node<T>* tmp = list.pFirst;				// РЅР°С‡РёРЅР°РµРј СЃ РїРµСЂРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
 		while (tmp != nullptr)
 		{
-			out << tmp->val;					// выводим значение узла
-			if (tmp->pNext != nullptr)			// если есть следующий, то 
+			out << tmp->val;					// РІС‹РІРѕРґРёРј Р·РЅР°С‡РµРЅРёРµ СѓР·Р»Р°
+			if (tmp->pNext != nullptr)			// РµСЃР»Рё РµСЃС‚СЊ СЃР»РµРґСѓСЋС‰РёР№, С‚Рѕ 
 			{
-				out << " + ";					// разделяем элементы плюсами
+				out << " + ";					// СЂР°Р·РґРµР»СЏРµРј СЌР»РµРјРµРЅС‚С‹ РїР»СЋСЃР°РјРё
 			}
-			tmp = tmp->pNext;					// переходим дальше
+			tmp = tmp->pNext;					// РїРµСЂРµС…РѕРґРёРј РґР°Р»СЊС€Рµ
 		}
 		return out;
 	}
@@ -81,7 +81,7 @@ public:
 
 
 template <class T>
-List<T>::List() : pFirst(nullptr), pLast(nullptr), sz(0) {}		// конструктор
+List<T>::List() : pFirst(nullptr), pLast(nullptr), sz(0) {}		// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 
 template <class T>
 List<T>::List(const List& other) : pFirst(nullptr), pLast(nullptr), sz(0) {
@@ -94,7 +94,7 @@ List<T>::List(const List& other) : pFirst(nullptr), pLast(nullptr), sz(0) {
 }
 
 template <class T>
-List<T>::~List()			// деструктор
+List<T>::~List()			// РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 {
 	while (!isEmpty())
 	{
@@ -104,21 +104,21 @@ List<T>::~List()			// деструктор
 
 
 template <class T>
-bool List<T>::isEmpty() const			// проверка на пустоту
+bool List<T>::isEmpty() const			// РїСЂРѕРІРµСЂРєР° РЅР° РїСѓСЃС‚РѕС‚Сѓ
 {
 	return pFirst == nullptr;
 }
 
 
 template <class T>
-void List<T>::insFirst(T elem)			// вставка в начало
+void List<T>::insFirst(T elem)			// РІСЃС‚Р°РІРєР° РІ РЅР°С‡Р°Р»Рѕ
 {
-	Node<T>* tmp = new Node<T>;// (elem);	// новый узел с данными
+	Node<T>* tmp = new Node<T>;// (elem);	// РЅРѕРІС‹Р№ СѓР·РµР» СЃ РґР°РЅРЅС‹РјРё
 	tmp->val = elem;
-	tmp->pNext = pFirst;				// новый узел указывает на текущий первый
-	//pFirst = node;						// теперь первый узел - новый
+	tmp->pNext = pFirst;				// РЅРѕРІС‹Р№ СѓР·РµР» СѓРєР°Р·С‹РІР°РµС‚ РЅР° С‚РµРєСѓС‰РёР№ РїРµСЂРІС‹Р№
+	//pFirst = node;						// С‚РµРїРµСЂСЊ РїРµСЂРІС‹Р№ СѓР·РµР» - РЅРѕРІС‹Р№
 
-	if (pFirst == nullptr)				// если список был пустым, то последний элемент тот же что и первый
+	if (pFirst == nullptr)				// РµСЃР»Рё СЃРїРёСЃРѕРє Р±С‹Р» РїСѓСЃС‚С‹Рј, С‚Рѕ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ С‚РѕС‚ Р¶Рµ С‡С‚Рѕ Рё РїРµСЂРІС‹Р№
 	{
 		pLast = tmp;
 		pFirst = tmp;
@@ -128,16 +128,16 @@ void List<T>::insFirst(T elem)			// вставка в начало
 
 
 template <class T>
-void List<T>::delFirst()				// удаляем из начала
+void List<T>::delFirst()				// СѓРґР°Р»СЏРµРј РёР· РЅР°С‡Р°Р»Р°
 {
-	if (pFirst==nullptr)						// если список пуст, то просто выходим
+	if (pFirst==nullptr)						// РµСЃР»Рё СЃРїРёСЃРѕРє РїСѓСЃС‚, С‚Рѕ РїСЂРѕСЃС‚Рѕ РІС‹С…РѕРґРёРј
 	{
 		return;
 	}
-	Node<T>* tmp = pFirst;				// сохраняем указатель на первый узел
-	pFirst = pFirst->pNext;				// переходим на следующий узел
-	delete tmp;							// удаляем самый первый узел
-	if (pFirst == nullptr)				// если список стал пустым то последний элемент логично = nullptr
+	Node<T>* tmp = pFirst;				// СЃРѕС…СЂР°РЅСЏРµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ СѓР·РµР»
+	pFirst = pFirst->pNext;				// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ СѓР·РµР»
+	delete tmp;							// СѓРґР°Р»СЏРµРј СЃР°РјС‹Р№ РїРµСЂРІС‹Р№ СѓР·РµР»
+	if (pFirst == nullptr)				// РµСЃР»Рё СЃРїРёСЃРѕРє СЃС‚Р°Р» РїСѓСЃС‚С‹Рј С‚Рѕ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ Р»РѕРіРёС‡РЅРѕ = nullptr
 	{
 		pLast = nullptr;
 	}
@@ -145,9 +145,9 @@ void List<T>::delFirst()				// удаляем из начала
 }
 
 template <class T>
-void List<T>::insLast(T elem)			// вставка в конец
+void List<T>::insLast(T elem)			// РІСЃС‚Р°РІРєР° РІ РєРѕРЅРµС†
 {
-	Node<T>* tmp = new Node<T>;// (elem);	// создаем новый узел 
+	Node<T>* tmp = new Node<T>;// (elem);	// СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ СѓР·РµР» 
 	tmp->val = elem;
 	if (pLast)
 	{
@@ -164,28 +164,28 @@ void List<T>::insLast(T elem)			// вставка в конец
 template <class T>
 void List<T>::delLast()
 {
-	if (pFirst == nullptr)						// если список пуст, то просто выходим
+	if (pFirst == nullptr)						// РµСЃР»Рё СЃРїРёСЃРѕРє РїСѓСЃС‚, С‚Рѕ РїСЂРѕСЃС‚Рѕ РІС‹С…РѕРґРёРј
 	{
 		return;
 	}
-	if (pFirst == pLast)				// если в списке один элемент 
+	if (pFirst == pLast)				// РµСЃР»Рё РІ СЃРїРёСЃРєРµ РѕРґРёРЅ СЌР»РµРјРµРЅС‚ 
 	{
-		delete pFirst;					// удаляем узел
-		pFirst = nullptr;				// устанавливаем указатели в нуллптр
+		delete pFirst;					// СѓРґР°Р»СЏРµРј СѓР·РµР»
+		pFirst = nullptr;				// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СѓРєР°Р·Р°С‚РµР»Рё РІ РЅСѓР»Р»РїС‚СЂ
 		pLast = nullptr;
 		//sz--;
 		return;
 	}
 	else
 	{
-		Node<T>* tmp = pFirst;				// временный указатель
-		while (tmp->pNext != pLast)			// идем до предполеднего элемента 
+		Node<T>* tmp = pFirst;				// РІСЂРµРјРµРЅРЅС‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ
+		while (tmp->pNext != pLast)			// РёРґРµРј РґРѕ РїСЂРµРґРїРѕР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° 
 		{
-			tmp = tmp->pNext;				// переходим к следующему элементу
+			tmp = tmp->pNext;				// РїРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµРјСѓ СЌР»РµРјРµРЅС‚Сѓ
 		}
-		delete pLast;						// удаляем последний
-		pLast = tmp;						// предпоследний становится последним	
-		pLast->pNext = nullptr;				// указатель последнего элемента = нуллптр
+		delete pLast;						// СѓРґР°Р»СЏРµРј РїРѕСЃР»РµРґРЅРёР№
+		pLast = tmp;						// РїСЂРµРґРїРѕСЃР»РµРґРЅРёР№ СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РїРѕСЃР»РµРґРЅРёРј	
+		pLast->pNext = nullptr;				// СѓРєР°Р·Р°С‚РµР»СЊ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° = РЅСѓР»Р»РїС‚СЂ
 	
 	}
 	sz--;
@@ -218,35 +218,35 @@ bool List<T>::isEnd()
 
 
 template<class T>
-void List<T>::delCurr()		// удаляем текущий элемент списка
+void List<T>::delCurr()		// СѓРґР°Р»СЏРµРј С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР°
 {
-	if (isEmpty() || pFirst == nullptr)		// если список пуст то ничего
+	if (isEmpty() || pFirst == nullptr)		// РµСЃР»Рё СЃРїРёСЃРѕРє РїСѓСЃС‚ С‚Рѕ РЅРёС‡РµРіРѕ
 	{
 		return;
 	}
-	if (pCurr == pFirst)		// если текущий элемент это первый элемент
+	if (pCurr == pFirst)		// РµСЃР»Рё С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ СЌС‚Рѕ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
 	{
-		delFirst();				// удаляем первый
+		delFirst();				// СѓРґР°Р»СЏРµРј РїРµСЂРІС‹Р№
 		reset();
 		return;
 	}
-	if (pCurr == pLast)			// если текущий элемент это последний элемент
+	if (pCurr == pLast)			// РµСЃР»Рё С‚РµРєСѓС‰РёР№ СЌР»РµРјРµРЅС‚ СЌС‚Рѕ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
 	{
-		delLast();				// удаляем 
+		delLast();				// СѓРґР°Р»СЏРµРј 
 		reset();
 		return;
 	}
 
-	pPrev->pNext = pCurr->pNext;	// переписываем указатль на предыдущий в зависимости от текущего
-	delete pCurr;					// удаляем текущий
-	pCurr = pPrev->pNext;			// перемещаем текущий на следубщий
+	pPrev->pNext = pCurr->pNext;	// РїРµСЂРµРїРёСЃС‹РІР°РµРј СѓРєР°Р·Р°С‚Р»СЊ РЅР° РїСЂРµРґС‹РґСѓС‰РёР№ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РµРєСѓС‰РµРіРѕ
+	delete pCurr;					// СѓРґР°Р»СЏРµРј С‚РµРєСѓС‰РёР№
+	pCurr = pPrev->pNext;			// РїРµСЂРµРјРµС‰Р°РµРј С‚РµРєСѓС‰РёР№ РЅР° СЃР»РµРґСѓР±С‰РёР№
 
-	if (pCurr == nullptr)			// если удалили последний элемент
+	if (pCurr == nullptr)			// РµСЃР»Рё СѓРґР°Р»РёР»Рё РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
 	{
-		pLast = pPrev;				// то pPrev теперь последний
+		pLast = pPrev;				// С‚Рѕ pPrev С‚РµРїРµСЂСЊ РїРѕСЃР»РµРґРЅРёР№
 	}
 
-	sz--;				// уменьшаем размер списка
+	sz--;				// СѓРјРµРЅСЊС€Р°РµРј СЂР°Р·РјРµСЂ СЃРїРёСЃРєР°
 
 }
 
@@ -265,7 +265,7 @@ void List<T>::insCurr(T elem)		//
 		return;
 	}
 	Node<T>* tmp = new Node<T>(elem);
-	tmp->pNext = pCurr; // Устанавливаем связь с текущ
+	tmp->pNext = pCurr; // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃРІСЏР·СЊ СЃ С‚РµРєСѓС‰
 
 	pPrev->pNext = tmp;
 	pPrev = pPrev->pNext;

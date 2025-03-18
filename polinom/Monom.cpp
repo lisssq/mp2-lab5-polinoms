@@ -1,4 +1,4 @@
-#include "Monom.h"
+ï»¿#include "Monom.h"
 
 Monom::Monom() : coeff(0), x(0), y(0), z(0) {}
 
@@ -43,13 +43,13 @@ bool Monom::operator!=(const Monom& m) const
 
 std::istream& operator>>(std::istream& in, Monom& mon)
 {
-    std::cout << "Ââåäèòå êîýôôèöèåíò: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚: ";
     in >> mon.coeff;
-    std::cout << "Ââåäèòå ñòåïåíü x: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ x: ";
     in >> mon.x;
-    std::cout << "Ââåäèòå ñòåïåíü y: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ y: ";
     in >> mon.y;
-    std::cout << "Ââåäèòå ñòåïåíü z: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ z: ";
     in >> mon.z;
     return in;
 }
